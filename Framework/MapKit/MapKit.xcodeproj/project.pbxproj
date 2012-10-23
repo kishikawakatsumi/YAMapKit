@@ -1,0 +1,708 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		14C023B51636172B005CC1CC /* Framework */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 14C023B61636172B005CC1CC /* Build configuration list for PBXAggregateTarget "Framework" */;
+			buildPhases = (
+				14C023BB16361757005CC1CC /* ShellScript */,
+			);
+			dependencies = (
+				14C023BA1636173E005CC1CC /* PBXTargetDependency */,
+			);
+			name = Framework;
+			productName = Framework;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		14BEAF921636115300DD54D5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14BEAF911636115300DD54D5 /* Foundation.framework */; };
+		14BEAF9E1636115D00DD54D5 /* MapKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 14BEAF961636115400DD54D5 /* MapKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		14C023261636125D005CC1CC /* MKFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C023141636125D005CC1CC /* MKFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		14C023271636125D005CC1CC /* MKTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C023151636125D005CC1CC /* MKTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		14C023281636125D005CC1CC /* MKGeometry.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C023161636125D005CC1CC /* MKGeometry.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		14C023291636125D005CC1CC /* MKMapView.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C023171636125D005CC1CC /* MKMapView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		14C0232A1636125D005CC1CC /* MKMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C023181636125D005CC1CC /* MKMapView.m */; };
+		14C0232B1636125D005CC1CC /* MKWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C023191636125D005CC1CC /* MKWebView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		14C0232C1636125D005CC1CC /* MKWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C0231A1636125D005CC1CC /* MKWebView.m */; };
+		14C0232D1636125D005CC1CC /* MKUserLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C0231B1636125D005CC1CC /* MKUserLocation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		14C0232E1636125D005CC1CC /* MKUserLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C0231C1636125D005CC1CC /* MKUserLocation.m */; };
+		14C0232F1636125D005CC1CC /* MKUserTrackingBarButtonItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C0231D1636125D005CC1CC /* MKUserTrackingBarButtonItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		14C023301636125D005CC1CC /* MKUserTrackingBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C0231E1636125D005CC1CC /* MKUserTrackingBarButtonItem.m */; };
+		14C023311636125D005CC1CC /* MKUserTrackingButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C0231F1636125D005CC1CC /* MKUserTrackingButton.h */; settings = {ATTRIBUTES = (); }; };
+		14C023321636125D005CC1CC /* MKUserTrackingButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C023201636125D005CC1CC /* MKUserTrackingButton.m */; };
+		14C023331636125D005CC1CC /* MKLocationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C023211636125D005CC1CC /* MKLocationManager.h */; settings = {ATTRIBUTES = (); }; };
+		14C023341636125D005CC1CC /* MKLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C023221636125D005CC1CC /* MKLocationManager.m */; };
+		14C023351636125D005CC1CC /* MKTouchesMovedGestureRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C023231636125D005CC1CC /* MKTouchesMovedGestureRecognizer.h */; settings = {ATTRIBUTES = (); }; };
+		14C023361636125D005CC1CC /* MKTouchesMovedGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C023241636125D005CC1CC /* MKTouchesMovedGestureRecognizer.m */; };
+		14C023371636125D005CC1CC /* MapKit.html.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C023251636125D005CC1CC /* MapKit.html.h */; };
+		14C0233C163612C4005CC1CC /* WebScriptEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C02338163612C3005CC1CC /* WebScriptEngine.h */; };
+		14C0233D163612C4005CC1CC /* WebScriptEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C02339163612C3005CC1CC /* WebScriptEngine.m */; };
+		14C0233E163612C4005CC1CC /* WebScriptObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C0233A163612C3005CC1CC /* WebScriptObject.h */; };
+		14C0233F163612C4005CC1CC /* WebScriptObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C0233B163612C3005CC1CC /* WebScriptObject.m */; };
+		14C02346163612D1005CC1CC /* MKPlacemark.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C02340163612D0005CC1CC /* MKPlacemark.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		14C02347163612D1005CC1CC /* MKPlacemark.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C02341163612D0005CC1CC /* MKPlacemark.m */; };
+		14C02348163612D1005CC1CC /* MKReverseGeocoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C02342163612D0005CC1CC /* MKReverseGeocoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		14C02349163612D1005CC1CC /* MKReverseGeocoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C02343163612D0005CC1CC /* MKReverseGeocoder.m */; };
+		14C0234A163612D1005CC1CC /* MKGeocoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C02344163612D0005CC1CC /* MKGeocoder.h */; };
+		14C0234B163612D1005CC1CC /* MKGeocoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C02345163612D1005CC1CC /* MKGeocoder.m */; };
+		14C0235416361392005CC1CC /* MKView.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C0234E16361391005CC1CC /* MKView.h */; };
+		14C0235516361392005CC1CC /* MKView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C0234F16361392005CC1CC /* MKView.m */; };
+		14C0235616361392005CC1CC /* MKOverlay.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C0235016361392005CC1CC /* MKOverlay.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		14C0235716361392005CC1CC /* MKAnnotation.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C0235116361392005CC1CC /* MKAnnotation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		14C0235816361392005CC1CC /* MKShape.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C0235216361392005CC1CC /* MKShape.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		14C0235916361392005CC1CC /* MKShape.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C0235316361392005CC1CC /* MKShape.m */; };
+		14C02361163613CF005CC1CC /* MKAnnotationView.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C0235D163613CF005CC1CC /* MKAnnotationView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		14C02362163613CF005CC1CC /* MKAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C0235E163613CF005CC1CC /* MKAnnotationView.m */; };
+		14C02363163613CF005CC1CC /* MKPinAnnotationView.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C0235F163613CF005CC1CC /* MKPinAnnotationView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		14C02364163613CF005CC1CC /* MKPinAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C02360163613CF005CC1CC /* MKPinAnnotationView.m */; };
+		14C02367163613DA005CC1CC /* MKPointAnnotation.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C02365163613DA005CC1CC /* MKPointAnnotation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		14C02368163613DA005CC1CC /* MKPointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C02366163613DA005CC1CC /* MKPointAnnotation.m */; };
+		14C02372163613FD005CC1CC /* MKCircle.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C0236A163613FD005CC1CC /* MKCircle.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		14C02373163613FD005CC1CC /* MKCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C0236B163613FD005CC1CC /* MKCircle.m */; };
+		14C02374163613FD005CC1CC /* MKMultiPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C0236C163613FD005CC1CC /* MKMultiPoint.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		14C02375163613FD005CC1CC /* MKMultiPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C0236D163613FD005CC1CC /* MKMultiPoint.m */; };
+		14C02376163613FD005CC1CC /* MKPolyline.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C0236E163613FD005CC1CC /* MKPolyline.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		14C02377163613FD005CC1CC /* MKPolyline.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C0236F163613FD005CC1CC /* MKPolyline.m */; };
+		14C02378163613FD005CC1CC /* MKPolygon.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C02370163613FD005CC1CC /* MKPolygon.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		14C02379163613FD005CC1CC /* MKPolygon.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C02371163613FD005CC1CC /* MKPolygon.m */; };
+		14C023841636140C005CC1CC /* MKOverlayView.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C0237A1636140C005CC1CC /* MKOverlayView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		14C023851636140C005CC1CC /* MKOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C0237B1636140C005CC1CC /* MKOverlayView.m */; };
+		14C023861636140C005CC1CC /* MKOverlayPathView.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C0237C1636140C005CC1CC /* MKOverlayPathView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		14C023871636140C005CC1CC /* MKOverlayPathView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C0237D1636140C005CC1CC /* MKOverlayPathView.m */; };
+		14C023881636140C005CC1CC /* MKCircleView.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C0237E1636140C005CC1CC /* MKCircleView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		14C023891636140C005CC1CC /* MKCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C0237F1636140C005CC1CC /* MKCircleView.m */; };
+		14C0238A1636140C005CC1CC /* MKPolylineView.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C023801636140C005CC1CC /* MKPolylineView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		14C0238B1636140C005CC1CC /* MKPolylineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C023811636140C005CC1CC /* MKPolylineView.m */; };
+		14C0238C1636140C005CC1CC /* MKPolygonView.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C023821636140C005CC1CC /* MKPolygonView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		14C0238D1636140C005CC1CC /* MKPolygonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C023831636140C005CC1CC /* MKPolygonView.m */; };
+		14C023931636143F005CC1CC /* MKDirectionsRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C0238F1636143F005CC1CC /* MKDirectionsRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		14C023941636143F005CC1CC /* MKDirectionsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C023901636143F005CC1CC /* MKDirectionsRequest.m */; };
+		14C023951636143F005CC1CC /* MKMapItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C023911636143F005CC1CC /* MKMapItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		14C023961636143F005CC1CC /* MKMapItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C023921636143F005CC1CC /* MKMapItem.m */; };
+		14C0239A1636145C005CC1CC /* UIColor+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C023981636145B005CC1CC /* UIColor+Additions.h */; };
+		14C0239B1636145C005CC1CC /* UIColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C023991636145B005CC1CC /* UIColor+Additions.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		14C023B91636173E005CC1CC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 14BEAF851636115300DD54D5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 14BEAF8D1636115300DD54D5;
+			remoteInfo = MapKit;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		14BEAF8E1636115300DD54D5 /* libMapKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMapKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		14BEAF911636115300DD54D5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		14BEAF951636115300DD54D5 /* MapKit-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MapKit-Prefix.pch"; sourceTree = "<group>"; };
+		14BEAF961636115400DD54D5 /* MapKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapKit.h; sourceTree = "<group>"; };
+		14C023141636125D005CC1CC /* MKFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKFoundation.h; sourceTree = "<group>"; };
+		14C023151636125D005CC1CC /* MKTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKTypes.h; sourceTree = "<group>"; };
+		14C023161636125D005CC1CC /* MKGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKGeometry.h; sourceTree = "<group>"; };
+		14C023171636125D005CC1CC /* MKMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKMapView.h; sourceTree = "<group>"; };
+		14C023181636125D005CC1CC /* MKMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKMapView.m; sourceTree = "<group>"; };
+		14C023191636125D005CC1CC /* MKWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKWebView.h; sourceTree = "<group>"; };
+		14C0231A1636125D005CC1CC /* MKWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKWebView.m; sourceTree = "<group>"; };
+		14C0231B1636125D005CC1CC /* MKUserLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKUserLocation.h; sourceTree = "<group>"; };
+		14C0231C1636125D005CC1CC /* MKUserLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKUserLocation.m; sourceTree = "<group>"; };
+		14C0231D1636125D005CC1CC /* MKUserTrackingBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKUserTrackingBarButtonItem.h; sourceTree = "<group>"; };
+		14C0231E1636125D005CC1CC /* MKUserTrackingBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKUserTrackingBarButtonItem.m; sourceTree = "<group>"; };
+		14C0231F1636125D005CC1CC /* MKUserTrackingButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKUserTrackingButton.h; sourceTree = "<group>"; };
+		14C023201636125D005CC1CC /* MKUserTrackingButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKUserTrackingButton.m; sourceTree = "<group>"; };
+		14C023211636125D005CC1CC /* MKLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKLocationManager.h; sourceTree = "<group>"; };
+		14C023221636125D005CC1CC /* MKLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKLocationManager.m; sourceTree = "<group>"; };
+		14C023231636125D005CC1CC /* MKTouchesMovedGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKTouchesMovedGestureRecognizer.h; sourceTree = "<group>"; };
+		14C023241636125D005CC1CC /* MKTouchesMovedGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKTouchesMovedGestureRecognizer.m; sourceTree = "<group>"; };
+		14C023251636125D005CC1CC /* MapKit.html.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapKit.html.h; sourceTree = "<group>"; };
+		14C02338163612C3005CC1CC /* WebScriptEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebScriptEngine.h; sourceTree = "<group>"; };
+		14C02339163612C3005CC1CC /* WebScriptEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebScriptEngine.m; sourceTree = "<group>"; };
+		14C0233A163612C3005CC1CC /* WebScriptObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebScriptObject.h; sourceTree = "<group>"; };
+		14C0233B163612C3005CC1CC /* WebScriptObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebScriptObject.m; sourceTree = "<group>"; };
+		14C02340163612D0005CC1CC /* MKPlacemark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKPlacemark.h; sourceTree = "<group>"; };
+		14C02341163612D0005CC1CC /* MKPlacemark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKPlacemark.m; sourceTree = "<group>"; };
+		14C02342163612D0005CC1CC /* MKReverseGeocoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKReverseGeocoder.h; sourceTree = "<group>"; };
+		14C02343163612D0005CC1CC /* MKReverseGeocoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKReverseGeocoder.m; sourceTree = "<group>"; };
+		14C02344163612D0005CC1CC /* MKGeocoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKGeocoder.h; sourceTree = "<group>"; };
+		14C02345163612D1005CC1CC /* MKGeocoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKGeocoder.m; sourceTree = "<group>"; };
+		14C0234E16361391005CC1CC /* MKView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKView.h; sourceTree = "<group>"; };
+		14C0234F16361392005CC1CC /* MKView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKView.m; sourceTree = "<group>"; };
+		14C0235016361392005CC1CC /* MKOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKOverlay.h; sourceTree = "<group>"; };
+		14C0235116361392005CC1CC /* MKAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKAnnotation.h; sourceTree = "<group>"; };
+		14C0235216361392005CC1CC /* MKShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKShape.h; sourceTree = "<group>"; };
+		14C0235316361392005CC1CC /* MKShape.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKShape.m; sourceTree = "<group>"; };
+		14C0235D163613CF005CC1CC /* MKAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKAnnotationView.h; sourceTree = "<group>"; };
+		14C0235E163613CF005CC1CC /* MKAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKAnnotationView.m; sourceTree = "<group>"; };
+		14C0235F163613CF005CC1CC /* MKPinAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKPinAnnotationView.h; sourceTree = "<group>"; };
+		14C02360163613CF005CC1CC /* MKPinAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKPinAnnotationView.m; sourceTree = "<group>"; };
+		14C02365163613DA005CC1CC /* MKPointAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKPointAnnotation.h; sourceTree = "<group>"; };
+		14C02366163613DA005CC1CC /* MKPointAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKPointAnnotation.m; sourceTree = "<group>"; };
+		14C0236A163613FD005CC1CC /* MKCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKCircle.h; sourceTree = "<group>"; };
+		14C0236B163613FD005CC1CC /* MKCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKCircle.m; sourceTree = "<group>"; };
+		14C0236C163613FD005CC1CC /* MKMultiPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKMultiPoint.h; sourceTree = "<group>"; };
+		14C0236D163613FD005CC1CC /* MKMultiPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKMultiPoint.m; sourceTree = "<group>"; };
+		14C0236E163613FD005CC1CC /* MKPolyline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKPolyline.h; sourceTree = "<group>"; };
+		14C0236F163613FD005CC1CC /* MKPolyline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKPolyline.m; sourceTree = "<group>"; };
+		14C02370163613FD005CC1CC /* MKPolygon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKPolygon.h; sourceTree = "<group>"; };
+		14C02371163613FD005CC1CC /* MKPolygon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKPolygon.m; sourceTree = "<group>"; };
+		14C0237A1636140C005CC1CC /* MKOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKOverlayView.h; sourceTree = "<group>"; };
+		14C0237B1636140C005CC1CC /* MKOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKOverlayView.m; sourceTree = "<group>"; };
+		14C0237C1636140C005CC1CC /* MKOverlayPathView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKOverlayPathView.h; sourceTree = "<group>"; };
+		14C0237D1636140C005CC1CC /* MKOverlayPathView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKOverlayPathView.m; sourceTree = "<group>"; };
+		14C0237E1636140C005CC1CC /* MKCircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKCircleView.h; sourceTree = "<group>"; };
+		14C0237F1636140C005CC1CC /* MKCircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKCircleView.m; sourceTree = "<group>"; };
+		14C023801636140C005CC1CC /* MKPolylineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKPolylineView.h; sourceTree = "<group>"; };
+		14C023811636140C005CC1CC /* MKPolylineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKPolylineView.m; sourceTree = "<group>"; };
+		14C023821636140C005CC1CC /* MKPolygonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKPolygonView.h; sourceTree = "<group>"; };
+		14C023831636140C005CC1CC /* MKPolygonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKPolygonView.m; sourceTree = "<group>"; };
+		14C0238F1636143F005CC1CC /* MKDirectionsRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKDirectionsRequest.h; sourceTree = "<group>"; };
+		14C023901636143F005CC1CC /* MKDirectionsRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKDirectionsRequest.m; sourceTree = "<group>"; };
+		14C023911636143F005CC1CC /* MKMapItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKMapItem.h; sourceTree = "<group>"; };
+		14C023921636143F005CC1CC /* MKMapItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKMapItem.m; sourceTree = "<group>"; };
+		14C023981636145B005CC1CC /* UIColor+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Additions.h"; sourceTree = "<group>"; };
+		14C023991636145B005CC1CC /* UIColor+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Additions.m"; sourceTree = "<group>"; };
+		14C0239D1636147B005CC1CC /* MKPinAnnotationColorRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MKPinAnnotationColorRed.png; sourceTree = "<group>"; };
+		14C0239E1636147B005CC1CC /* MKPinAnnotationColorRed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MKPinAnnotationColorRed@2x.png"; sourceTree = "<group>"; };
+		14C0239F1636147B005CC1CC /* MKPinAnnotationColorGreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MKPinAnnotationColorGreen.png; sourceTree = "<group>"; };
+		14C023A01636147B005CC1CC /* MKPinAnnotationColorGreen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MKPinAnnotationColorGreen@2x.png"; sourceTree = "<group>"; };
+		14C023A11636147C005CC1CC /* MKPinAnnotationColorPurple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MKPinAnnotationColorPurple.png; sourceTree = "<group>"; };
+		14C023A21636147C005CC1CC /* MKPinAnnotationColorPurple@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MKPinAnnotationColorPurple@2x.png"; sourceTree = "<group>"; };
+		14C023A31636147C005CC1CC /* TrackingEmpty~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TrackingEmpty~iphone.png"; sourceTree = "<group>"; };
+		14C023A41636147C005CC1CC /* TrackingEmpty~iphone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TrackingEmpty~iphone@2x.png"; sourceTree = "<group>"; };
+		14C023A51636147C005CC1CC /* TrackingHeading~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TrackingHeading~iphone.png"; sourceTree = "<group>"; };
+		14C023A61636147C005CC1CC /* TrackingHeading~iphone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TrackingHeading~iphone@2x.png"; sourceTree = "<group>"; };
+		14C023A71636147C005CC1CC /* TrackingLocation~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TrackingLocation~iphone.png"; sourceTree = "<group>"; };
+		14C023A81636147C005CC1CC /* TrackingLocation~iphone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TrackingLocation~iphone@2x.png"; sourceTree = "<group>"; };
+		14C023A91636147D005CC1CC /* HeadingAngleLarge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HeadingAngleLarge.png; sourceTree = "<group>"; };
+		14C023AA1636147D005CC1CC /* HeadingAngleLarge@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HeadingAngleLarge@2x.png"; sourceTree = "<group>"; };
+		14C023AB1636147D005CC1CC /* HeadingAngleMedium.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HeadingAngleMedium.png; sourceTree = "<group>"; };
+		14C023AC1636147D005CC1CC /* HeadingAngleMedium@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HeadingAngleMedium@2x.png"; sourceTree = "<group>"; };
+		14C023AD1636147D005CC1CC /* HeadingAngleSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HeadingAngleSmall.png; sourceTree = "<group>"; };
+		14C023AE1636147D005CC1CC /* HeadingAngleSmall@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HeadingAngleSmall@2x.png"; sourceTree = "<group>"; };
+		14C023AF1636147D005CC1CC /* TransparentPixel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TransparentPixel.png; sourceTree = "<group>"; };
+		14C023B01636147D005CC1CC /* MapKit.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = MapKit.html; sourceTree = "<group>"; };
+		14C023B11636147D005CC1CC /* Stylesheet.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = Stylesheet.css; sourceTree = "<group>"; };
+		14C023B21636147E005CC1CC /* Animations.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = Animations.css; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		14BEAF8B1636115300DD54D5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				14BEAF921636115300DD54D5 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		14BEAF831636115300DD54D5 = {
+			isa = PBXGroup;
+			children = (
+				14BEAF931636115300DD54D5 /* MapKit */,
+				14BEAF901636115300DD54D5 /* Frameworks */,
+				14BEAF8F1636115300DD54D5 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		14BEAF8F1636115300DD54D5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				14BEAF8E1636115300DD54D5 /* libMapKit.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		14BEAF901636115300DD54D5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				14BEAF911636115300DD54D5 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		14BEAF931636115300DD54D5 /* MapKit */ = {
+			isa = PBXGroup;
+			children = (
+				14BEAF961636115400DD54D5 /* MapKit.h */,
+				14C023141636125D005CC1CC /* MKFoundation.h */,
+				14C023151636125D005CC1CC /* MKTypes.h */,
+				14C023161636125D005CC1CC /* MKGeometry.h */,
+				14C023171636125D005CC1CC /* MKMapView.h */,
+				14C023181636125D005CC1CC /* MKMapView.m */,
+				14C023191636125D005CC1CC /* MKWebView.h */,
+				14C0231A1636125D005CC1CC /* MKWebView.m */,
+				14C0231B1636125D005CC1CC /* MKUserLocation.h */,
+				14C0231C1636125D005CC1CC /* MKUserLocation.m */,
+				14C0231D1636125D005CC1CC /* MKUserTrackingBarButtonItem.h */,
+				14C0231E1636125D005CC1CC /* MKUserTrackingBarButtonItem.m */,
+				14C0231F1636125D005CC1CC /* MKUserTrackingButton.h */,
+				14C023201636125D005CC1CC /* MKUserTrackingButton.m */,
+				14C023211636125D005CC1CC /* MKLocationManager.h */,
+				14C023221636125D005CC1CC /* MKLocationManager.m */,
+				14C023231636125D005CC1CC /* MKTouchesMovedGestureRecognizer.h */,
+				14C023241636125D005CC1CC /* MKTouchesMovedGestureRecognizer.m */,
+				14C023251636125D005CC1CC /* MapKit.html.h */,
+				14C0234C163612E0005CC1CC /* Scripting */,
+				14C0234D163612F0005CC1CC /* Geocoding */,
+				14C0235A1636139E005CC1CC /* Annotations And Overlays */,
+				14C023971636144B005CC1CC /* Directions */,
+				14C0239C16361465005CC1CC /* Categories */,
+				14C023B31636148C005CC1CC /* Resources */,
+				14BEAF941636115300DD54D5 /* Supporting Files */,
+			);
+			path = MapKit;
+			sourceTree = "<group>";
+		};
+		14BEAF941636115300DD54D5 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				14BEAF951636115300DD54D5 /* MapKit-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		14C0234C163612E0005CC1CC /* Scripting */ = {
+			isa = PBXGroup;
+			children = (
+				14C02338163612C3005CC1CC /* WebScriptEngine.h */,
+				14C02339163612C3005CC1CC /* WebScriptEngine.m */,
+				14C0233A163612C3005CC1CC /* WebScriptObject.h */,
+				14C0233B163612C3005CC1CC /* WebScriptObject.m */,
+			);
+			name = Scripting;
+			sourceTree = "<group>";
+		};
+		14C0234D163612F0005CC1CC /* Geocoding */ = {
+			isa = PBXGroup;
+			children = (
+				14C02340163612D0005CC1CC /* MKPlacemark.h */,
+				14C02341163612D0005CC1CC /* MKPlacemark.m */,
+				14C02342163612D0005CC1CC /* MKReverseGeocoder.h */,
+				14C02343163612D0005CC1CC /* MKReverseGeocoder.m */,
+				14C02344163612D0005CC1CC /* MKGeocoder.h */,
+				14C02345163612D1005CC1CC /* MKGeocoder.m */,
+			);
+			name = Geocoding;
+			sourceTree = "<group>";
+		};
+		14C0235A1636139E005CC1CC /* Annotations And Overlays */ = {
+			isa = PBXGroup;
+			children = (
+				14C0235016361392005CC1CC /* MKOverlay.h */,
+				14C0235116361392005CC1CC /* MKAnnotation.h */,
+				14C0235216361392005CC1CC /* MKShape.h */,
+				14C0235316361392005CC1CC /* MKShape.m */,
+				14C0234E16361391005CC1CC /* MKView.h */,
+				14C0234F16361392005CC1CC /* MKView.m */,
+				14C0235B163613B3005CC1CC /* Annotations */,
+			);
+			name = "Annotations And Overlays";
+			sourceTree = "<group>";
+		};
+		14C0235B163613B3005CC1CC /* Annotations */ = {
+			isa = PBXGroup;
+			children = (
+				14C02365163613DA005CC1CC /* MKPointAnnotation.h */,
+				14C02366163613DA005CC1CC /* MKPointAnnotation.m */,
+				14C0235C163613C3005CC1CC /* Views */,
+				14C02369163613ED005CC1CC /* Overlays */,
+			);
+			name = Annotations;
+			sourceTree = "<group>";
+		};
+		14C0235C163613C3005CC1CC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				14C0235D163613CF005CC1CC /* MKAnnotationView.h */,
+				14C0235E163613CF005CC1CC /* MKAnnotationView.m */,
+				14C0235F163613CF005CC1CC /* MKPinAnnotationView.h */,
+				14C02360163613CF005CC1CC /* MKPinAnnotationView.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		14C02369163613ED005CC1CC /* Overlays */ = {
+			isa = PBXGroup;
+			children = (
+				14C0236A163613FD005CC1CC /* MKCircle.h */,
+				14C0236B163613FD005CC1CC /* MKCircle.m */,
+				14C0236C163613FD005CC1CC /* MKMultiPoint.h */,
+				14C0236D163613FD005CC1CC /* MKMultiPoint.m */,
+				14C0236E163613FD005CC1CC /* MKPolyline.h */,
+				14C0236F163613FD005CC1CC /* MKPolyline.m */,
+				14C02370163613FD005CC1CC /* MKPolygon.h */,
+				14C02371163613FD005CC1CC /* MKPolygon.m */,
+				14C0238E1636141A005CC1CC /* Views */,
+			);
+			name = Overlays;
+			sourceTree = "<group>";
+		};
+		14C0238E1636141A005CC1CC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				14C0237A1636140C005CC1CC /* MKOverlayView.h */,
+				14C0237B1636140C005CC1CC /* MKOverlayView.m */,
+				14C0237C1636140C005CC1CC /* MKOverlayPathView.h */,
+				14C0237D1636140C005CC1CC /* MKOverlayPathView.m */,
+				14C0237E1636140C005CC1CC /* MKCircleView.h */,
+				14C0237F1636140C005CC1CC /* MKCircleView.m */,
+				14C023801636140C005CC1CC /* MKPolylineView.h */,
+				14C023811636140C005CC1CC /* MKPolylineView.m */,
+				14C023821636140C005CC1CC /* MKPolygonView.h */,
+				14C023831636140C005CC1CC /* MKPolygonView.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		14C023971636144B005CC1CC /* Directions */ = {
+			isa = PBXGroup;
+			children = (
+				14C0238F1636143F005CC1CC /* MKDirectionsRequest.h */,
+				14C023901636143F005CC1CC /* MKDirectionsRequest.m */,
+				14C023911636143F005CC1CC /* MKMapItem.h */,
+				14C023921636143F005CC1CC /* MKMapItem.m */,
+			);
+			name = Directions;
+			sourceTree = "<group>";
+		};
+		14C0239C16361465005CC1CC /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				14C023981636145B005CC1CC /* UIColor+Additions.h */,
+				14C023991636145B005CC1CC /* UIColor+Additions.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		14C023B31636148C005CC1CC /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				14C0239D1636147B005CC1CC /* MKPinAnnotationColorRed.png */,
+				14C0239E1636147B005CC1CC /* MKPinAnnotationColorRed@2x.png */,
+				14C0239F1636147B005CC1CC /* MKPinAnnotationColorGreen.png */,
+				14C023A01636147B005CC1CC /* MKPinAnnotationColorGreen@2x.png */,
+				14C023A11636147C005CC1CC /* MKPinAnnotationColorPurple.png */,
+				14C023A21636147C005CC1CC /* MKPinAnnotationColorPurple@2x.png */,
+				14C023A31636147C005CC1CC /* TrackingEmpty~iphone.png */,
+				14C023A41636147C005CC1CC /* TrackingEmpty~iphone@2x.png */,
+				14C023A51636147C005CC1CC /* TrackingHeading~iphone.png */,
+				14C023A61636147C005CC1CC /* TrackingHeading~iphone@2x.png */,
+				14C023A71636147C005CC1CC /* TrackingLocation~iphone.png */,
+				14C023A81636147C005CC1CC /* TrackingLocation~iphone@2x.png */,
+				14C023A91636147D005CC1CC /* HeadingAngleLarge.png */,
+				14C023AA1636147D005CC1CC /* HeadingAngleLarge@2x.png */,
+				14C023AB1636147D005CC1CC /* HeadingAngleMedium.png */,
+				14C023AC1636147D005CC1CC /* HeadingAngleMedium@2x.png */,
+				14C023AD1636147D005CC1CC /* HeadingAngleSmall.png */,
+				14C023AE1636147D005CC1CC /* HeadingAngleSmall@2x.png */,
+				14C023AF1636147D005CC1CC /* TransparentPixel.png */,
+				14C023B01636147D005CC1CC /* MapKit.html */,
+				14C023B11636147D005CC1CC /* Stylesheet.css */,
+				14C023B21636147E005CC1CC /* Animations.css */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		14BEAF8C1636115300DD54D5 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				14BEAF9E1636115D00DD54D5 /* MapKit.h in Headers */,
+				14C023261636125D005CC1CC /* MKFoundation.h in Headers */,
+				14C023271636125D005CC1CC /* MKTypes.h in Headers */,
+				14C023281636125D005CC1CC /* MKGeometry.h in Headers */,
+				14C023291636125D005CC1CC /* MKMapView.h in Headers */,
+				14C0232B1636125D005CC1CC /* MKWebView.h in Headers */,
+				14C0232D1636125D005CC1CC /* MKUserLocation.h in Headers */,
+				14C0232F1636125D005CC1CC /* MKUserTrackingBarButtonItem.h in Headers */,
+				14C023311636125D005CC1CC /* MKUserTrackingButton.h in Headers */,
+				14C023331636125D005CC1CC /* MKLocationManager.h in Headers */,
+				14C023351636125D005CC1CC /* MKTouchesMovedGestureRecognizer.h in Headers */,
+				14C023371636125D005CC1CC /* MapKit.html.h in Headers */,
+				14C0233C163612C4005CC1CC /* WebScriptEngine.h in Headers */,
+				14C0233E163612C4005CC1CC /* WebScriptObject.h in Headers */,
+				14C02346163612D1005CC1CC /* MKPlacemark.h in Headers */,
+				14C02348163612D1005CC1CC /* MKReverseGeocoder.h in Headers */,
+				14C0234A163612D1005CC1CC /* MKGeocoder.h in Headers */,
+				14C0235416361392005CC1CC /* MKView.h in Headers */,
+				14C0235616361392005CC1CC /* MKOverlay.h in Headers */,
+				14C0235716361392005CC1CC /* MKAnnotation.h in Headers */,
+				14C0235816361392005CC1CC /* MKShape.h in Headers */,
+				14C02361163613CF005CC1CC /* MKAnnotationView.h in Headers */,
+				14C02363163613CF005CC1CC /* MKPinAnnotationView.h in Headers */,
+				14C02367163613DA005CC1CC /* MKPointAnnotation.h in Headers */,
+				14C02372163613FD005CC1CC /* MKCircle.h in Headers */,
+				14C02374163613FD005CC1CC /* MKMultiPoint.h in Headers */,
+				14C02376163613FD005CC1CC /* MKPolyline.h in Headers */,
+				14C02378163613FD005CC1CC /* MKPolygon.h in Headers */,
+				14C023841636140C005CC1CC /* MKOverlayView.h in Headers */,
+				14C023861636140C005CC1CC /* MKOverlayPathView.h in Headers */,
+				14C023881636140C005CC1CC /* MKCircleView.h in Headers */,
+				14C0238A1636140C005CC1CC /* MKPolylineView.h in Headers */,
+				14C0238C1636140C005CC1CC /* MKPolygonView.h in Headers */,
+				14C023931636143F005CC1CC /* MKDirectionsRequest.h in Headers */,
+				14C023951636143F005CC1CC /* MKMapItem.h in Headers */,
+				14C0239A1636145C005CC1CC /* UIColor+Additions.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		14BEAF8D1636115300DD54D5 /* MapKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 14BEAF9B1636115400DD54D5 /* Build configuration list for PBXNativeTarget "MapKit" */;
+			buildPhases = (
+				14BEAF8A1636115300DD54D5 /* Sources */,
+				14BEAF8B1636115300DD54D5 /* Frameworks */,
+				14BEAF8C1636115300DD54D5 /* Headers */,
+				14C023B416361668005CC1CC /* Prepare Framework */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MapKit;
+			productName = MapKit;
+			productReference = 14BEAF8E1636115300DD54D5 /* libMapKit.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		14BEAF851636115300DD54D5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = "";
+			};
+			buildConfigurationList = 14BEAF881636115300DD54D5 /* Build configuration list for PBXProject "MapKit" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 14BEAF831636115300DD54D5;
+			productRefGroup = 14BEAF8F1636115300DD54D5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				14BEAF8D1636115300DD54D5 /* MapKit */,
+				14C023B51636172B005CC1CC /* Framework */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		14C023B416361668005CC1CC /* Prepare Framework */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Prepare Framework";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\n\nmkdir -p \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Versions/A/Headers\"\n\n# Link the \"Current\" version to \"A\"\n/bin/ln -sfh A \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Versions/Current\"\n/bin/ln -sfh Versions/Current/Headers \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Headers\"\n/bin/ln -sfh \"Versions/Current/${PRODUCT_NAME}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/${PRODUCT_NAME}\"\n\n# The -a ensures that the headers maintain the source modification date so that we don't constantly\n# cause propagating rebuilds of files that import these headers.\n/bin/cp -a \"${TARGET_BUILD_DIR}/${PUBLIC_HEADERS_FOLDER_PATH}/\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Versions/A/Headers\"\n";
+		};
+		14C023BB16361757005CC1CC /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\nset +u\n# Avoid recursively calling this script.\nif [[ $SF_MASTER_SCRIPT_RUNNING ]]\nthen\nexit 0\nfi\nset -u\nexport SF_MASTER_SCRIPT_RUNNING=1\n\nSF_TARGET_NAME=${PROJECT_NAME}\nSF_EXECUTABLE_PATH=\"lib${SF_TARGET_NAME}.a\"\nSF_WRAPPER_NAME=\"${SF_TARGET_NAME}.framework\"\n\n# The following conditionals come from\n# https://github.com/kstenerud/iOS-Universal-Framework\n\nif [[ \"$SDK_NAME\" =~ ([A-Za-z]+) ]]\nthen\nSF_SDK_PLATFORM=${BASH_REMATCH[1]}\nelse\necho \"Could not find platform name from SDK_NAME: $SDK_NAME\"\nexit 1\nfi\n\nif [[ \"$SDK_NAME\" =~ ([0-9]+.*$) ]]\nthen\nSF_SDK_VERSION=${BASH_REMATCH[1]}\nelse\necho \"Could not find sdk version from SDK_NAME: $SDK_NAME\"\nexit 1\nfi\n\nif [[ \"$SF_SDK_PLATFORM\" = \"iphoneos\" ]]\nthen\nSF_OTHER_PLATFORM=iphonesimulator\nelse\nSF_OTHER_PLATFORM=iphoneos\nfi\n\nif [[ \"$BUILT_PRODUCTS_DIR\" =~ (.*)$SF_SDK_PLATFORM$ ]]\nthen\nSF_OTHER_BUILT_PRODUCTS_DIR=\"${BASH_REMATCH[1]}${SF_OTHER_PLATFORM}\"\nelse\necho \"Could not find platform name from build products directory: $BUILT_PRODUCTS_DIR\"\nexit 1\nfi\n\n# Build the other platform.\nxcodebuild -project \"${PROJECT_FILE_PATH}\" -target \"${TARGET_NAME}\" -configuration \"${CONFIGURATION}\" -sdk ${SF_OTHER_PLATFORM}${SF_SDK_VERSION} BUILD_DIR=\"${BUILD_DIR}\" OBJROOT=\"${OBJROOT}\" BUILD_ROOT=\"${BUILD_ROOT}\" SYMROOT=\"${SYMROOT}\" $ACTION\n\n# Smash the two static libraries into one fat binary and store it in the .framework\nlipo -create \"${BUILT_PRODUCTS_DIR}/${SF_EXECUTABLE_PATH}\" \"${SF_OTHER_BUILT_PRODUCTS_DIR}/${SF_EXECUTABLE_PATH}\" -output \"${BUILT_PRODUCTS_DIR}/${SF_WRAPPER_NAME}/Versions/A/${SF_TARGET_NAME}\"\n\n# Copy the binary to the other architecture folder to have a complete framework in both.\ncp -a \"${BUILT_PRODUCTS_DIR}/${SF_WRAPPER_NAME}/Versions/A/${SF_TARGET_NAME}\" \"${SF_OTHER_BUILT_PRODUCTS_DIR}/${SF_WRAPPER_NAME}/Versions/A/${SF_TARGET_NAME}\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		14BEAF8A1636115300DD54D5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				14C0232A1636125D005CC1CC /* MKMapView.m in Sources */,
+				14C0232C1636125D005CC1CC /* MKWebView.m in Sources */,
+				14C0232E1636125D005CC1CC /* MKUserLocation.m in Sources */,
+				14C023301636125D005CC1CC /* MKUserTrackingBarButtonItem.m in Sources */,
+				14C023321636125D005CC1CC /* MKUserTrackingButton.m in Sources */,
+				14C023341636125D005CC1CC /* MKLocationManager.m in Sources */,
+				14C023361636125D005CC1CC /* MKTouchesMovedGestureRecognizer.m in Sources */,
+				14C0233D163612C4005CC1CC /* WebScriptEngine.m in Sources */,
+				14C0233F163612C4005CC1CC /* WebScriptObject.m in Sources */,
+				14C02347163612D1005CC1CC /* MKPlacemark.m in Sources */,
+				14C02349163612D1005CC1CC /* MKReverseGeocoder.m in Sources */,
+				14C0234B163612D1005CC1CC /* MKGeocoder.m in Sources */,
+				14C0235516361392005CC1CC /* MKView.m in Sources */,
+				14C0235916361392005CC1CC /* MKShape.m in Sources */,
+				14C02362163613CF005CC1CC /* MKAnnotationView.m in Sources */,
+				14C02364163613CF005CC1CC /* MKPinAnnotationView.m in Sources */,
+				14C02368163613DA005CC1CC /* MKPointAnnotation.m in Sources */,
+				14C02373163613FD005CC1CC /* MKCircle.m in Sources */,
+				14C02375163613FD005CC1CC /* MKMultiPoint.m in Sources */,
+				14C02377163613FD005CC1CC /* MKPolyline.m in Sources */,
+				14C02379163613FD005CC1CC /* MKPolygon.m in Sources */,
+				14C023851636140C005CC1CC /* MKOverlayView.m in Sources */,
+				14C023871636140C005CC1CC /* MKOverlayPathView.m in Sources */,
+				14C023891636140C005CC1CC /* MKCircleView.m in Sources */,
+				14C0238B1636140C005CC1CC /* MKPolylineView.m in Sources */,
+				14C0238D1636140C005CC1CC /* MKPolygonView.m in Sources */,
+				14C023941636143F005CC1CC /* MKDirectionsRequest.m in Sources */,
+				14C023961636143F005CC1CC /* MKMapItem.m in Sources */,
+				14C0239B1636145C005CC1CC /* UIColor+Additions.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		14C023BA1636173E005CC1CC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 14BEAF8D1636115300DD54D5 /* MapKit */;
+			targetProxy = 14C023B91636173E005CC1CC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		14BEAF991636115400DD54D5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		14BEAF9A1636115400DD54D5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		14BEAF9C1636115400DD54D5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = NO;
+				DSTROOT = /tmp/MapKit.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MapKit/MapKit-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(PROJECT_NAME)Headers";
+				SKIP_INSTALL = YES;
+				STRIP_STYLE = "non-global";
+			};
+			name = Debug;
+		};
+		14BEAF9D1636115400DD54D5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = NO;
+				DSTROOT = /tmp/MapKit.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MapKit/MapKit-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(PROJECT_NAME)Headers";
+				SKIP_INSTALL = YES;
+				STRIP_STYLE = "non-global";
+			};
+			name = Release;
+		};
+		14C023B71636172B005CC1CC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		14C023B81636172B005CC1CC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		14BEAF881636115300DD54D5 /* Build configuration list for PBXProject "MapKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				14BEAF991636115400DD54D5 /* Debug */,
+				14BEAF9A1636115400DD54D5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		14BEAF9B1636115400DD54D5 /* Build configuration list for PBXNativeTarget "MapKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				14BEAF9C1636115400DD54D5 /* Debug */,
+				14BEAF9D1636115400DD54D5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		14C023B61636172B005CC1CC /* Build configuration list for PBXAggregateTarget "Framework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				14C023B71636172B005CC1CC /* Debug */,
+				14C023B81636172B005CC1CC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 14BEAF851636115300DD54D5 /* Project object */;
+}
