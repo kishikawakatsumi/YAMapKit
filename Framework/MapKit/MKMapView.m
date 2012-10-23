@@ -55,14 +55,14 @@ static MKWebView *webView;
     
     // Create the overlay data structures
     overlays = [[NSMutableArray alloc] init];
-    overlayViews = [NSMapTable strongToStrongObjectsMapTable];
-    overlayScriptObjects = [NSMapTable strongToStrongObjectsMapTable];
+    overlayViews = [[NSMutableDictionary alloc] init];
+    overlayScriptObjects = [[NSMutableDictionary alloc] init];
     
     // Create the annotation data structures
     annotations = [[NSMutableArray alloc] init];
     selectedAnnotations = [[NSMutableArray alloc] init];
-    annotationViews = [NSMapTable strongToStrongObjectsMapTable];
-    annotationScriptObjects = [NSMapTable strongToStrongObjectsMapTable];
+    annotationViews = [[NSMutableDictionary alloc] init];
+    annotationScriptObjects = [[NSMutableDictionary alloc] init];
     
     [self loadMapKitHtml];
     
@@ -359,7 +359,7 @@ static MKWebView *webView;
     NSUInteger zIndex = 4000; // some arbitrary starting value
     WebScriptObject *webScriptObject = [webView windowScriptObject];
     for (id <MKOverlay> overlay in self.overlays) {
-        WebScriptObject *overlayScriptObject = (WebScriptObject *)[overlayScriptObjects objectForKey: overlay];
+        WebScriptObject *overlayScriptObject = [overlayScriptObjects objectForKey:@([overlay hash])];
         if (overlayScriptObject) {
             NSArray *args = [NSArray arrayWithObjects: overlayScriptObject, @"zIndex", [NSNumber numberWithInteger:zIndex], nil];
             [webScriptObject.scriptEngine callWebScriptMethod:@"setOverlayOption" withArguments:args];
@@ -870,8 +870,8 @@ static MKWebView *webView;
     }
     
     [overlays insertObject:overlay atIndex:index];
-    [overlayViews setObject:overlayView forKey:overlay];
-    [overlayScriptObjects setObject:overlayScriptObject forKey:overlay];
+    [overlayViews setObject:overlayView forKey:@([overlay hash])];
+    [overlayScriptObjects setObject:overlayScriptObject forKey:@([overlay hash])];
     
     NSArray *args = [NSArray arrayWithObject:overlayScriptObject];
     [webScriptObject.scriptEngine callWebScriptMethod:@"addOverlay" withArguments:args];
@@ -901,12 +901,12 @@ static MKWebView *webView;
     }
     
     WebScriptObject *webScriptObject = [webView windowScriptObject];
-    WebScriptObject *overlayScriptObject = (WebScriptObject *)[overlayScriptObjects objectForKey: overlay];
+    WebScriptObject *overlayScriptObject = [overlayScriptObjects objectForKey:@([overlay hash])];
     NSArray *args = [NSArray arrayWithObject:overlayScriptObject];
     [webScriptObject.scriptEngine callWebScriptMethod:@"removeOverlay" withArguments:args];
     
-    [overlayViews removeObjectForKey:overlay];
-    [overlayScriptObjects removeObjectForKey:overlay];
+    [overlayViews removeObjectForKey:@([overlay hash])];
+    [overlayScriptObjects removeObjectForKey:@([overlay hash])];
     
     [self.overlays removeObject:overlay];
     [self updateOverlayZIndexes];
@@ -915,7 +915,7 @@ static MKWebView *webView;
 - (void)removeOverlays:(NSArray *)someOverlays
 {
     for (id<MKOverlay>overlay in someOverlays) {
-        [self removeOverlay: overlay];
+        [self removeOverlay:overlay];
     }
 }
 
@@ -924,7 +924,7 @@ static MKWebView *webView;
     if (![self.overlays containsObject:overlay]) {
         return nil;
     }
-    return (MKOverlayView *)[overlayViews objectForKey: overlay];
+    return [overlayViews objectForKey:@([overlay hash])];
 }
 
 #pragma mark Annotations
@@ -962,8 +962,8 @@ static MKWebView *webView;
         }
         
         [self.annotations addObject:annotation];
-        [annotationViews setObject:annotationView forKey:annotation];
-        [annotationScriptObjects setObject:annotationScriptObject forKey:annotation];
+        [annotationViews setObject:annotationView forKey:@([annotation hash])];
+        [annotationScriptObjects setObject:annotationScriptObject forKey:@([annotation hash])];
         
         NSArray *args = [NSArray arrayWithObject:annotationScriptObject];
         [webScriptObject.scriptEngine callWebScriptMethod:@"addAnnotation" withArguments:args];

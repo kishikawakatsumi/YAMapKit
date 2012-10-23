@@ -105,11 +105,11 @@ MK_CLASS_AVAILABLE(NA, 3_0)
     CLLocationManager *locationManager;
     BOOL hasSetCenterCoordinate;
     // Overlays
-    NSMapTable *overlayViews;
-    NSMapTable *overlayScriptObjects;
+    NSMutableDictionary *overlayViews;
+    NSMutableDictionary *overlayScriptObjects;
     // Annotations
-    NSMapTable *annotationViews;
-    NSMapTable *annotationScriptObjects;
+    NSMutableDictionary *annotationViews;
+    NSMutableDictionary *annotationScriptObjects;
 }
 
 @property (assign, nonatomic) id <MKMapViewDelegate> delegate;
