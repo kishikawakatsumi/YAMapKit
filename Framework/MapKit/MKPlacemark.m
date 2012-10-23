@@ -39,6 +39,11 @@
     return self;
 }
 
+- (id)initWithPlacemark:(CLPlacemark *)placemark
+{
+    return [self initWithCoordinate:placemark.location.coordinate addressDictionary:placemark.addressDictionary];
+}
+
 - (id)initWithGoogleGeocoderResult:(NSDictionary *)result
 {
     if (self = [super init])

@@ -10,7 +10,7 @@
 #import <MapKit/MKAnnotation.h>
 #import <CoreLocation/CLLocation.h>
 
-@interface MKPlacemark : NSObject <MKAnnotation> {
+@interface MKPlacemark : CLPlacemark <MKAnnotation> {
     CLLocationCoordinate2D coordinate;
     NSDictionary *addressDictionary;
     NSString *thoroughfare;
@@ -45,5 +45,8 @@
 @property (nonatomic, readonly) NSString *postalCode; // zip code, eg 95014
 @property (nonatomic, readonly) NSString *country; // eg. United States
 @property (nonatomic, readonly) NSString *countryCode; // eg. US
+
+@property (nonatomic, readwrite, copy) NSString *title;
+@property (nonatomic, readwrite, copy) NSString *subtitle;
 
 @end

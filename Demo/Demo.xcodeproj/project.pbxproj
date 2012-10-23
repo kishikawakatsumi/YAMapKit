@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		08F806D4163690EF00FCFC4E /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F806D3163690EF00FCFC4E /* AddressBookUI.framework */; };
 		142D8A9D16332AC800800C64 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 142D8A9C16332AC800800C64 /* UIKit.framework */; };
 		142D8A9F16332AC800800C64 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 142D8A9E16332AC800800C64 /* Foundation.framework */; };
 		142D8AA116332AC800800C64 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 142D8AA016332AC800800C64 /* CoreGraphics.framework */; };
@@ -43,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		08F806D3163690EF00FCFC4E /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		142D8A9816332AC800800C64 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		142D8A9C16332AC800800C64 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		142D8A9E16332AC800800C64 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -77,6 +79,7 @@
 				142D8A9D16332AC800800C64 /* UIKit.framework in Frameworks */,
 				142D8A9F16332AC800800C64 /* Foundation.framework in Frameworks */,
 				142D8AA116332AC800800C64 /* CoreGraphics.framework in Frameworks */,
+				08F806D4163690EF00FCFC4E /* AddressBookUI.framework in Frameworks */,
 				142D8AD716332C2D00800C64 /* CoreLocation.framework in Frameworks */,
 				14C023E616361B96005CC1CC /* libMapKit.a in Frameworks */,
 			);
@@ -109,6 +112,7 @@
 				142D8A9C16332AC800800C64 /* UIKit.framework */,
 				142D8A9E16332AC800800C64 /* Foundation.framework */,
 				142D8AA016332AC800800C64 /* CoreGraphics.framework */,
+				08F806D3163690EF00FCFC4E /* AddressBookUI.framework */,
 				142D8AD616332C2D00800C64 /* CoreLocation.framework */,
 			);
 			name = Frameworks;

@@ -21,9 +21,17 @@
 @property (weak, nonatomic) IBOutlet UIView *dimView;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 
+@property (strong, nonatomic) CLGeocoder *geocoder;
+
 @end
 
 @implementation MapViewController
+
+- (void)awakeFromNib
+{
+    self.geocoder = [[CLGeocoder alloc] init];
+    [super awakeFromNib];
+}
 
 - (void)viewDidLoad
 {
@@ -36,6 +44,7 @@
     self.mapView = mapView;
     _mapView.delegate = self;
     _mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    mapView.showsUserLocation = YES;
     [self.containerView addSubview:_mapView];
     
     UIBarButtonItem *userTrackingButton = [[MKUserTrackingBarButtonItem alloc] initWithMapView:_mapView];
@@ -104,19 +113,20 @@
 //    CLLocationDistance diameter = [self getDistanceFrom:neCoord to:swCoord];
 //    CLRegion *region = [[CLRegion alloc] initCircularRegionWithCenter:_mapView.centerCoordinate radius:(diameter / 2) identifier:@"search"];
 //    
-//    [_geocoder geocodeAddressString:searchBar.text inRegion:region completionHandler:^(NSArray *placemarks, NSError *error)
-//     {
-//         if (!error) {
-//             NSInteger index = 0;
-//             for (CLPlacemark *placemark in placemarks) {
-//                 if (index == 0) {
-//                     [_mapView setCenterCoordinate:placemark.location.coordinate animated:NO];
-//                 }
-//                 [_mapView addAnnotation:[[MKPlacemark alloc] initWithPlacemark:placemark]];
-//                 index++;
-//             }
-//         }
-//     }];
+    [_geocoder geocodeAddressString:searchBar.text completionHandler:^(NSArray *placemarks, NSError *error)
+     {
+         if (!error) {
+             NSInteger index = 0;
+             for (CLPlacemark *placemark in placemarks) {
+                 if (index == 0) {
+                     [_mapView setCenterCoordinate:placemark.location.coordinate animated:NO];
+                 }
+                 MKPlacemark *annotation = [[MKPlacemark alloc] initWithPlacemark:placemark];
+                 [_mapView addAnnotation:annotation];
+                 index++;
+             }
+         }
+     }];
     
     [self finishSearch];
 }
@@ -162,11 +172,7 @@
         }
         
         annotationView.annotation = annotation;
-        int64_t delayInSeconds = 0.4;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            [mapView selectAnnotation:annotation animated:YES];
-        });
+        [mapView selectAnnotation:annotation animated:YES];
         
         return annotationView;
     }
@@ -181,11 +187,7 @@
     }
     
 	annotationView.annotation = annotation;
-    int64_t delayInSeconds = 0.4;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [mapView selectAnnotation:annotation animated:YES];
-    });
+    [mapView selectAnnotation:annotation animated:YES];
     
 	return annotationView;
 }
@@ -213,15 +215,15 @@
     droppedPin.title = NSLocalizedString(@"Dropped Pin", nil);
     [_mapView addAnnotation:droppedPin];
     
-//    CLLocation *location = [[CLLocation alloc] initWithLatitude:centerCoordinate.latitude longitude:centerCoordinate.longitude];
-//    [_geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error)
-//     {
-//         if (!error && placemarks.count > 0) {
-//             CLPlacemark *placemark = placemarks[0];
-//             droppedPin.subtitle = ABCreateStringWithAddressDictionary(placemark.addressDictionary, NO);
-//             droppedPin.addressDictionary = placemark.addressDictionary;
-//         }
-//     }];
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:centerCoordinate.latitude longitude:centerCoordinate.longitude];
+    [_geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error)
+     {
+         if (!error && placemarks.count > 0) {
+             CLPlacemark *placemark = placemarks[0];
+             droppedPin.subtitle = ABCreateStringWithAddressDictionary(placemark.addressDictionary, NO);
+             droppedPin.addressDictionary = placemark.addressDictionary;
+         }
+     }];
 }
 
 

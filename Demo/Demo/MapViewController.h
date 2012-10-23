@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AddressBookUI/AddressBookUI.h>
 #import <MapKit/MapKit.h>
 
 @interface MapViewController : UIViewController

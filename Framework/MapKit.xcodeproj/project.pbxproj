@@ -101,6 +101,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		08F806D11636860000FCFC4E /* MapKit.minify.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = MapKit.minify.html; sourceTree = "<group>"; };
 		14BEAF8E1636115300DD54D5 /* libMapKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMapKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		14BEAF911636115300DD54D5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		14BEAF951636115300DD54D5 /* MapKit-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MapKit-Prefix.pch"; sourceTree = "<group>"; };
@@ -407,6 +408,7 @@
 				14C023AE1636147D005CC1CC /* HeadingAngleSmall@2x.png */,
 				14C023AF1636147D005CC1CC /* TransparentPixel.png */,
 				14C023B01636147D005CC1CC /* MapKit.html */,
+				08F806D11636860000FCFC4E /* MapKit.minify.html */,
 				14C023B11636147D005CC1CC /* Stylesheet.css */,
 				14C023B21636147E005CC1CC /* Animations.css */,
 			);

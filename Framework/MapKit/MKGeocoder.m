@@ -12,6 +12,13 @@
 
 #import "MKGeocoder.h"
 #import "MKPlacemark.h"
+#import "MKWebView.h"
+#import "WebScriptEngine.h"
+#import "WebScriptObject.h"
+
+@interface MKGeocoder () <UIWebViewDelegate>
+
+@end
 
 @interface MKGeocoder (WebViewIntegration)
 
@@ -176,62 +183,55 @@
 //    //NSLog(@"didClearWindowObjet");
 //    [windowScriptObject setValue:self forKey:@"MKGeocoder"];
 //}
-//
-//- (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame
-//{
-//    //NSLog(@"didFinishLoad:");
+
+- (void)webView:(MKWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    //NSLog(@"didFinishLoad:");
 //    [[webView windowScriptObject] setValue:self forKey:@"MKGeocoder"];
 //    webViewLoaded = YES;
 //    if (self.querying && [sender mainFrame] == frame)
 //    {
 //        [self _start];
 //    }
-//}
+}
 
 #pragma mark Private
 
 - (void)createWebView
 {
-    // TODO : make this suck less.
-//    NSBundle *frameworkBundle = [NSBundle bundleForClass:[MKGeocoder class]];
-//    NSString *indexPath = [frameworkBundle pathForResource:@"MapKit" ofType:@"html"];
-//    webView = [[WebView alloc] initWithFrame:NSZeroRect frameName:nil groupName:nil];
-//    [[webView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:indexPath]]]; 
-//    [[webView windowScriptObject] setValue:self forKey:@"MKGeocoder"];
-//    [webView setFrameLoadDelegate:self];
+    webView = [[MKWebView alloc] initWithFrame:CGRectZero];
+    webView.delegate = self;
+    
+#include "MapKit.html.h"
+    [webView loadHTMLString:[NSString stringWithCString:MapKit_html length:MapKit_html_len] baseURL:[NSURL fileURLWithPath:@"MapKit.html"]];
 }
 
 - (void)destroyWebView
 {
-//    [webView close];
-//    [webView release];
+    webView = nil;
 }
 
 - (void)_start
 {
-//    //NSLog(@"start");
-//    NSArray *args = nil;
-//    if (hasOriginatingCoordinate)
-//        args = [NSArray arrayWithObjects:
-//                     self.address,
-//                     [NSNumber numberWithDouble:originatingCoordinate.latitude],
-//                     [NSNumber numberWithDouble:originatingCoordinate.longitude],
-//                     nil];
-//    else {
-//        args = [NSArray arrayWithObject: self.address];
-//    }
-//
-//
-//    WebScriptObject *webScriptObject = [webView windowScriptObject];
-//    //NSLog(@"got webscriptobject");
-//    id val = [webScriptObject callWebScriptMethod:@"geocode" withArguments:args];
-//    //NSLog(@"val = %@", val);
-//    if (!val)
-//    {
-//        // something went wrong, call the failure delegate
-//        //NSLog(@"MKReverseGeocoder tried to start but the script wasn't ready, rescheduling");
-//        [self performSelector:@selector(_start) withObject:nil afterDelay:0.1];
-//    }
+    //NSLog(@"start");
+    NSArray *args = nil;
+    if (hasOriginatingCoordinate)
+        args = @[self.address, @(originatingCoordinate.latitude), @(originatingCoordinate.longitude)];
+    else {
+        args = @[self.address];
+    }
+
+
+    WebScriptObject *webScriptObject = [webView windowScriptObject];
+    //NSLog(@"got webscriptobject");
+    id val = [webScriptObject.scriptEngine callWebScriptMethod:@"geocode" withArguments:args];
+    //NSLog(@"val = %@", val);
+    if (!val)
+    {
+        // something went wrong, call the failure delegate
+        //NSLog(@"MKReverseGeocoder tried to start but the script wasn't ready, rescheduling");
+        [self performSelector:@selector(_start) withObject:nil afterDelay:0.1];
+    }
 }
 
 @end

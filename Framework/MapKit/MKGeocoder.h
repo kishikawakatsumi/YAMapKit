@@ -11,6 +11,7 @@
 #import <MapKit/MKTypes.h>
 
 @protocol MKGeocoderDelegate;
+@class MKWebView;
 
 @interface MKGeocoder : NSObject {
     NSString *address;
@@ -19,7 +20,7 @@
     CLLocationCoordinate2D coordinate;
     BOOL querying;
 @private
-    UIWebView *webView;
+    MKWebView *webView;
     BOOL webViewLoaded;
 }
 

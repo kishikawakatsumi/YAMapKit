@@ -10,7 +10,7 @@
 #import <CoreLocation/CLLocation.h>
 #import <MapKit/MKTypes.h>
 
-@class MKPlacemark;
+@class MKPlacemark, MKWebView;
 @protocol MKReverseGeocoderDelegate;
 
 @interface MKReverseGeocoder : NSObject {
@@ -18,7 +18,7 @@
     MKPlacemark *placemark;
     BOOL querying;
 @private
-    UIWebView *webView;
+    MKWebView *webView;
     BOOL webViewLoaded;
 }
 

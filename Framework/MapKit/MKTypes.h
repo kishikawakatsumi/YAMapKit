@@ -16,7 +16,6 @@ enum {
 };
 typedef NSUInteger MKMapType;
 
-
 MK_EXTERN NSString *MKErrorDomain;
 
 enum MKErrorCode {

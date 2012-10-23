@@ -11,5 +11,8 @@
 @implementation Placemark
 
 //@synthesize addressDictionary;
+- (void)setAddressDictionary:(NSDictionary *)dictionary {
+    addressDictionary = dictionary;
+}
 
 @end

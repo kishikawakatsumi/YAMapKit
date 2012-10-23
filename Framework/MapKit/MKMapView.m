@@ -18,6 +18,8 @@
 #import "WebScriptEngine.h"
 #import "WebScriptObject.h"
 
+typedef void (^DelayedAction)();
+
 static MKWebView *webView;
 
 @interface MKUserLocation (Private)
@@ -27,7 +29,10 @@ static MKWebView *webView;
 
 @end
 
-@interface MKMapView () <UIWebViewDelegate, CLLocationManagerDelegate>
+@interface MKMapView () <UIWebViewDelegate, CLLocationManagerDelegate> {
+    BOOL webViewLoaded;
+    NSMutableArray *actions;
+}
 
 @end
 
@@ -41,7 +46,9 @@ static MKWebView *webView;
     if (!webView) {
         webView = [[MKWebView alloc] initWithFrame:self.bounds];
     }
-    webView.frame = self.bounds;
+    if (!actions) {
+        actions = [[NSMutableArray alloc] init];
+    }
     
     webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     webView.delegate = self;
@@ -65,18 +72,34 @@ static MKWebView *webView;
 
 - (void)loadMapKitHtml
 {
-    // TODO : make this suck less.
-//    NSBundle *frameworkBundle = [NSBundle bundleForClass:[MKMapView class]];
-//    NSString *path = [frameworkBundle pathForResource:@"MapKit" ofType:@"html"];
-//    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:path]]];
-//    [[[webView mainFrame] frameView] setAllowsScrolling:NO];
-    if (!webView.superview) {
-        [self addSubview:webView];
+    webView.scrollView.scrollEnabled = NO;
+#include "MapKit.html.h"
+    [webView loadHTMLString:[NSString stringWithCString:MapKit_html length:MapKit_html_len] baseURL:[NSURL fileURLWithPath:@"MapKit.html"]];
+    [self addSubview:webView];
+}
+
+- (void)invokeLater:(DelayedAction)action
+{
+    if (webViewLoaded) {
+        action();
+    } else {
+        [actions addObject:[action copy]];
     }
 }
 
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {    
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
     return [request.URL.absoluteString hasSuffix:@"MapKit.html"];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    webViewLoaded = YES;
+    for (DelayedAction action in actions) {
+        action();
+    }
+    
+    [actions removeAllObjects];
 }
 
 @end
@@ -304,20 +327,30 @@ static MKWebView *webView;
 
 - (void)setUserLocationMarkerVisible:(BOOL)visible
 {
-    NSArray *args = [NSArray arrayWithObjects:[NSNumber numberWithBool:visible], nil];
-    WebScriptObject *webScriptObject = [webView windowScriptObject];
-    [webScriptObject.scriptEngine callWebScriptMethod:@"setUserLocationVisible" withArguments:args];
+    DelayedAction action = ^
+    {
+        NSArray *args = [NSArray arrayWithObjects:@(visible), nil];
+        WebScriptObject *webScriptObject = [webView windowScriptObject];
+        [webScriptObject.scriptEngine callWebScriptMethod:@"setUserLocationVisible" withArguments:args];
+    };
+    
+    [self invokeLater:action];
 }
 
 - (void)updateUserLocationMarkerWithLocaton:(CLLocation *)location
 {
-    WebScriptObject *webScriptObject = [webView windowScriptObject];
+    DelayedAction action = ^
+    {
+        WebScriptObject *webScriptObject = [webView windowScriptObject];
+        
+        CLLocationAccuracy accuracy = MAX(location.horizontalAccuracy, location.verticalAccuracy);
+        NSArray *args = @[[NSNumber numberWithDouble: accuracy]];
+        [webScriptObject.scriptEngine callWebScriptMethod:@"setUserLocationRadius" withArguments:args];
+        args = @[[NSNumber numberWithDouble:location.coordinate.latitude], [NSNumber numberWithDouble:location.coordinate.longitude]];
+        [webScriptObject.scriptEngine callWebScriptMethod:@"setUserLocationLatitudeLongitude" withArguments:args];
+    };
     
-    CLLocationAccuracy accuracy = MAX(location.horizontalAccuracy, location.verticalAccuracy);
-    NSArray *args = @[[NSNumber numberWithDouble: accuracy]];
-    [webScriptObject.scriptEngine callWebScriptMethod:@"setUserLocationRadius" withArguments:args];
-    args = @[[NSNumber numberWithDouble:location.coordinate.latitude], [NSNumber numberWithDouble:location.coordinate.longitude]];
-    [webScriptObject.scriptEngine callWebScriptMethod:@"setUserLocationLatitudeLongitude" withArguments:args];
+    [self invokeLater:action];
 }
 
 - (void)updateOverlayZIndexes
@@ -580,16 +613,6 @@ static MKWebView *webView;
 @synthesize overlays;
 @synthesize annotations;
 
-+ (void)initialize
-{
-    if (!webView) {
-        webView = [[MKWebView alloc] initWithFrame:CGRectZero];
-#include "MapKit.html.h"
-        [webView loadHTMLString:[NSString stringWithCString:MapKit_html length:MapKit_html_len] baseURL:[NSURL fileURLWithPath:@"MapKit.html"]];
-
-    }
-}
-
 - (id)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
@@ -634,10 +657,15 @@ static MKWebView *webView;
 
 - (void)setMapType:(MKMapType)type
 {
-    _mapType = type;
-    WebScriptObject *webScriptObject = [webView windowScriptObject];
-    NSArray *args = [NSArray arrayWithObject:[NSNumber numberWithInt:_mapType]];
-    [webScriptObject.scriptEngine callWebScriptMethod:@"setMapType" withArguments:args];
+    DelayedAction action = ^
+    {
+        _mapType = type;
+        WebScriptObject *webScriptObject = [webView windowScriptObject];
+        NSArray *args = [NSArray arrayWithObject:[NSNumber numberWithInt:_mapType]];
+        [webScriptObject.scriptEngine callWebScriptMethod:@"setMapType" withArguments:args];
+    };
+    
+    [self invokeLater:action];
 }
 
 - (CLLocationCoordinate2D)centerCoordinate
@@ -665,18 +693,22 @@ static MKWebView *webView;
 
 - (void)setCenterCoordinate:(CLLocationCoordinate2D)coordinate animated:(BOOL)animated
 {
-    [self willChangeValueForKey:@"region"];
-    NSArray *args = [NSArray arrayWithObjects:
-                     [NSNumber numberWithDouble:coordinate.latitude],
-                     [NSNumber numberWithDouble:coordinate.longitude],
-                     [NSNumber numberWithBool:animated],
-                     nil];
-    WebScriptObject *webScriptObject = [webView windowScriptObject];
-    [webScriptObject.scriptEngine callWebScriptMethod:@"setCenterCoordinateAnimated" withArguments:args];
-    [self didChangeValueForKey:@"region"];
-    hasSetCenterCoordinate = YES;
+    DelayedAction action = ^
+    {
+        [self willChangeValueForKey:@"region"];
+        NSArray *args = [NSArray arrayWithObjects:
+                         [NSNumber numberWithDouble:coordinate.latitude],
+                         [NSNumber numberWithDouble:coordinate.longitude],
+                         [NSNumber numberWithBool:animated],
+                         nil];
+        WebScriptObject *webScriptObject = [webView windowScriptObject];
+        [webScriptObject.scriptEngine callWebScriptMethod:@"setCenterCoordinateAnimated" withArguments:args];
+        [self didChangeValueForKey:@"region"];
+        hasSetCenterCoordinate = YES;
+    };
+    
+    [self invokeLater:action];
 }
-
 
 - (MKCoordinateRegion)region
 {
@@ -704,53 +736,60 @@ static MKWebView *webView;
 
 - (void)setRegion:(MKCoordinateRegion)region animated:(BOOL)animated
 {
-    [self delegateRegionWillChangeAnimated:animated];
-    [self willChangeValueForKey:@"centerCoordinate"];
-    WebScriptObject *webScriptObject = [webView windowScriptObject];
-    NSArray *args = @[[NSNumber numberWithDouble:region.center.latitude],
-                     [NSNumber numberWithDouble:region.center.longitude],
-                     [NSNumber numberWithDouble:region.span.latitudeDelta],
-                     [NSNumber numberWithDouble:region.span.longitudeDelta],
-                     [NSNumber numberWithBool:animated]];
-    [webScriptObject.scriptEngine callWebScriptMethod:@"setRegionAnimated" withArguments:args];
-    [self didChangeValueForKey:@"centerCoordinate"];
-    [self delegateRegionDidChangeAnimated:animated];
+    DelayedAction action = ^
+    {
+        [self delegateRegionWillChangeAnimated:animated];
+        [self willChangeValueForKey:@"centerCoordinate"];
+        WebScriptObject *webScriptObject = [webView windowScriptObject];
+        NSArray *args = @[@(region.center.latitude), @(region.center.longitude), @(region.span.latitudeDelta), @(region.span.longitudeDelta), @(animated)];
+        [webScriptObject.scriptEngine callWebScriptMethod:@"setRegionAnimated" withArguments:args];
+        [self didChangeValueForKey:@"centerCoordinate"];
+        [self delegateRegionDidChangeAnimated:animated];
+    };
+    
+    [self invokeLater:action];
 }
 
 - (void)setShowsUserLocation:(BOOL)show
 {
-    BOOL oldValue = _showsUserLocation;
-    _showsUserLocation = show;
+    DelayedAction action = ^
+    {
+        BOOL oldValue = _showsUserLocation;
+        _showsUserLocation = show;
+        
+        if (oldValue == NO && _showsUserLocation == YES) {
+            [self delegateWillStartLocatingUser];
+            // To be sure we get all of the delegate calls from CoreLocation, we have to recreate the manager.
+            // Unfortunately if you just call stop/start, it'll never resend the kCLErrorDenied error.
+            locationManager = [[CLLocationManager alloc] init];
+            locationManager.delegate = self;
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
+        }
+        
+        if (_showsUserLocation) {
+            [_userLocation _setUpdating:YES];
+            [locationManager startUpdatingLocation];
+        } else {
+            [self setUserLocationMarkerVisible: NO];
+            [_userLocation _setUpdating:NO];
+            [locationManager stopUpdatingLocation];
+            locationManager = nil;
+            [_userLocation _setLocation:nil];
+        }
+        
+        if (oldValue == YES && _showsUserLocation == NO) {
+            [self delegateDidStopLocatingUser];
+        }
+    };
     
-    if (oldValue == NO && _showsUserLocation == YES) {
-        [self delegateWillStartLocatingUser];
-        // To be sure we get all of the delegate calls from CoreLocation, we have to recreate the manager.
-        // Unfortunately if you just call stop/start, it'll never resend the kCLErrorDenied error.
-        locationManager = [[CLLocationManager alloc] init];
-        locationManager.delegate = self;
-        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
-    }
-    
-    if (_showsUserLocation) {
-        [_userLocation _setUpdating:YES];
-        [locationManager startUpdatingLocation];
-    } else {
-        [self setUserLocationMarkerVisible: NO];
-        [_userLocation _setUpdating:NO];
-        [locationManager stopUpdatingLocation];
-        locationManager = nil;
-        [_userLocation _setLocation:nil];
-    }
-    
-    if (oldValue == YES && _showsUserLocation == NO) {
-        [self delegateDidStopLocatingUser];
-    }
+    [self invokeLater:action];
 }
 
 - (BOOL)isUserLocationVisible
 {
-    if (!self.showsUserLocation || !_userLocation.location)
+    if (!self.showsUserLocation || !_userLocation.location) {
         return NO;
+    }
     WebScriptObject *webScriptObject = [webView windowScriptObject];
     NSString *visible = [webScriptObject.scriptEngine callWebScriptMethod:@"isUserLocationVisible" withArguments:[NSArray array]];
     return visible.boolValue;
@@ -803,12 +842,14 @@ static MKWebView *webView;
 - (void)insertOverlay:(id < MKOverlay >)overlay atIndex:(NSUInteger)index
 {
     // check if maybe we already have this one.
-    if ([self.overlays containsObject:overlay])
+    if ([self.overlays containsObject:overlay]) {
         return;
+    }
     
     // Make sure we have a valid index.
-    if (index > [self.overlays count])
+    if (index > [self.overlays count]) {
         index = [self.overlays count];
+    }
     
     WebScriptObject *webScriptObject = [webView windowScriptObject];
     
@@ -845,8 +886,9 @@ static MKWebView *webView;
 
 - (void)insertOverlay:(id < MKOverlay >)overlay belowOverlay:(id < MKOverlay >)sibling
 {
-    if (![self.overlays containsObject:sibling])
+    if (![self.overlays containsObject:sibling]) {
         return;
+    }
     
     NSUInteger indexOfSibling = [self.overlays indexOfObject:sibling];
     [self insertOverlay:overlay atIndex: indexOfSibling];
@@ -854,8 +896,9 @@ static MKWebView *webView;
 
 - (void)removeOverlay:(id < MKOverlay >)overlay
 {
-    if (![self.overlays containsObject:overlay])
+    if (![self.overlays containsObject:overlay]) {
         return;
+    }
     
     WebScriptObject *webScriptObject = [webView windowScriptObject];
     WebScriptObject *overlayScriptObject = (WebScriptObject *)[overlayScriptObjects objectForKey: overlay];
@@ -871,16 +914,16 @@ static MKWebView *webView;
 
 - (void)removeOverlays:(NSArray *)someOverlays
 {
-    for (id<MKOverlay>overlay in someOverlays)
-    {
+    for (id<MKOverlay>overlay in someOverlays) {
         [self removeOverlay: overlay];
     }
 }
 
 - (MKOverlayView *)viewForOverlay:(id < MKOverlay >)overlay
 {
-    if (![self.overlays containsObject:overlay])
+    if (![self.overlays containsObject:overlay]) {
         return nil;
+    }
     return (MKOverlayView *)[overlayViews objectForKey: overlay];
 }
 
@@ -893,48 +936,52 @@ static MKWebView *webView;
 
 - (void)addAnnotation:(id <MKAnnotation>)annotation
 {
-    // check if maybe we already have this one.
-    if ([self.annotations containsObject:annotation]) {
-        return;
-    }
+    DelayedAction action = ^
+    {
+        // check if maybe we already have this one.
+        if ([self.annotations containsObject:annotation]) {
+            return;
+        }
+        
+        WebScriptObject *webScriptObject = [webView windowScriptObject];
+        
+        MKAnnotationView *annotationView = nil;
+        if ([self.delegate respondsToSelector:@selector(mapView:viewForAnnotation:)]) {
+            annotationView = [self.delegate mapView:self viewForAnnotation:annotation];
+        }
+        if (!annotationView) {
+            // TODO: Handle the case where we have no view
+            NSLog(@"Wasn't able to create a MKAnnotationView for annotation: %@", annotation);
+            return;
+        }
+        
+        WebScriptObject *annotationScriptObject = [annotationView overlayScriptObjectFromMapScriptObject:webScriptObject];
+        if (![annotationScriptObject isKindOfClass:[WebScriptObject class]]) {
+            NSLog(@"Error creating internal representation of annotation view for annotation: %@", annotation);
+            return;
+        }
+        
+        [self.annotations addObject:annotation];
+        [annotationViews setObject:annotationView forKey:annotation];
+        [annotationScriptObjects setObject:annotationScriptObject forKey:annotation];
+        
+        NSArray *args = [NSArray arrayWithObject:annotationScriptObject];
+        [webScriptObject.scriptEngine callWebScriptMethod:@"addAnnotation" withArguments:args];
+        [annotationView draw:annotationScriptObject];
+        
+        [self updateAnnotationZIndexes];
+        
+        // TODO: refactor how this works so that we can send one batch call
+        // when they called addAnnotations:
+        [self delegateDidAddAnnotationViews:[NSArray arrayWithObject:annotationView]];
+    };
     
-    WebScriptObject *webScriptObject = [webView windowScriptObject];
-    
-    MKAnnotationView *annotationView = nil;
-    if ([self.delegate respondsToSelector:@selector(mapView:viewForAnnotation:)]) {
-        annotationView = [self.delegate mapView:self viewForAnnotation:annotation];
-    }
-    if (!annotationView) {
-        // TODO: Handle the case where we have no view
-        NSLog(@"Wasn't able to create a MKAnnotationView for annotation: %@", annotation);
-        return;
-    }
-    
-    WebScriptObject *annotationScriptObject = [annotationView overlayScriptObjectFromMapScriptObject:webScriptObject];
-    if (![annotationScriptObject isKindOfClass:[WebScriptObject class]]) {
-        NSLog(@"Error creating internal representation of annotation view for annotation: %@", annotation);
-        return;
-    }
-    
-    [self.annotations addObject:annotation];
-    [annotationViews setObject:annotationView forKey:annotation];
-    [annotationScriptObjects setObject:annotationScriptObject forKey:annotation];
-    
-    NSArray *args = [NSArray arrayWithObject:annotationScriptObject];
-    [webScriptObject.scriptEngine callWebScriptMethod:@"addAnnotation" withArguments:args];
-    [annotationView draw:annotationScriptObject];
-    
-    [self updateAnnotationZIndexes];
-    
-    // TODO: refactor how this works so that we can send one batch call
-    // when they called addAnnotations:
-    [self delegateDidAddAnnotationViews:[NSArray arrayWithObject:annotationView]];
+    [self invokeLater:action];
 }
 
 - (void)addAnnotations:(NSArray *)someAnnotations
 {
-    for (id<MKAnnotation>annotation in someAnnotations)
-    {
+    for (id<MKAnnotation>annotation in someAnnotations) {
         [self addAnnotation: annotation];
     }
 }
@@ -958,8 +1005,7 @@ static MKWebView *webView;
 
 - (void)removeAnnotations:(NSArray *)someAnnotations
 {
-    for (id<MKAnnotation>annotation in someAnnotations)
-    {
+    for (id<MKAnnotation>annotation in someAnnotations) {
         [self removeAnnotation: annotation];
     }
 }
@@ -980,25 +1026,42 @@ static MKWebView *webView;
 
 - (void)selectAnnotation:(id <MKAnnotation>)annotation animated:(BOOL)animated
 {
-    if ([selectedAnnotations containsObject:annotation]) {
-        return;
-    }
-    
-    MKAnnotationView *annotationView = [annotationViews objectForKey:annotation];
-    [self.selectedAnnotations addObject:annotation];
-    [self delegateDidSelectAnnotationView:annotationView];
-    
-    WebScriptObject *webScriptObject = [webView windowScriptObject];
-    WebScriptObject *annotationScriptObject = (WebScriptObject *)[annotationScriptObjects objectForKey: annotation];
-    
-    if (annotation.title)
+    __block BOOL retry = NO;
+    DelayedAction action = ^
     {
-        NSArray *args = [NSArray arrayWithObjects:annotationScriptObject, annotation.title, nil];
-        [webScriptObject.scriptEngine callWebScriptMethod:@"setAnnotationCalloutText" withArguments:args];
-        args = [NSArray arrayWithObjects:annotationScriptObject, [NSNumber numberWithBool:NO], nil];
-        [webScriptObject.scriptEngine callWebScriptMethod:@"setAnnotationCalloutHidden" withArguments:args];
-    }
+        if ([selectedAnnotations containsObject:annotation]) {
+            return;
+        }
+        
+        MKAnnotationView *annotationView = [annotationViews objectForKey:annotation];
+        if (!annotationView) {
+            retry = YES;
+        }
+        [self.selectedAnnotations addObject:annotation];
+        [self delegateDidSelectAnnotationView:annotationView];
+        
+        WebScriptObject *webScriptObject = [webView windowScriptObject];
+        WebScriptObject *annotationScriptObject = (WebScriptObject *)[annotationScriptObjects objectForKey: annotation];
+        
+        if (annotation.title)
+        {
+            NSArray *args = [NSArray arrayWithObjects:annotationScriptObject, annotation.title, nil];
+            [webScriptObject.scriptEngine callWebScriptMethod:@"setAnnotationCalloutText" withArguments:args];
+            args = [NSArray arrayWithObjects:annotationScriptObject, [NSNumber numberWithBool:NO], nil];
+            [webScriptObject.scriptEngine callWebScriptMethod:@"setAnnotationCalloutHidden" withArguments:args];
+        }
+    };
     
+    [self invokeLater:action];
+    
+    if (retry) {
+        DelayedAction clone = [action copy];
+        int64_t delayInSeconds = 0.0;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            clone();
+        });
+    }
 }
 
 - (void)deselectAnnotation:(id < MKAnnotation >)annotation animated:(BOOL)animated
@@ -1035,8 +1098,9 @@ static MKWebView *webView;
     self.selectedAnnotations = newSelectedAnnotations;
     
     // If it's manually set and there's more than one, you only select the first according to the docs.
-    if ([self.selectedAnnotations count] > 0)
+    if ([self.selectedAnnotations count] > 0) {
         [self selectAnnotation:[self.selectedAnnotations objectAtIndex:0] animated:NO];
+    }
 }
 
 #pragma mark Converting Map Coordinates
@@ -1100,8 +1164,9 @@ static MKWebView *webView;
 
 - (void)setScrollEnabled:(BOOL)scrollEnabled
 {
-    if (!scrollEnabled)
+    if (!scrollEnabled) {
         NSLog(@"setting scrollEnabled to NO on MKMapView not supported.");
+    }
 }
 
 - (BOOL)isZoomEnabled
@@ -1111,8 +1176,9 @@ static MKWebView *webView;
 
 - (void)setZoomEnabled:(BOOL)zoomEnabled
 {
-    if (!zoomEnabled)
+    if (!zoomEnabled) {
         NSLog(@"setting zoomEnabled to NO on MKMapView not supported");
+    }
 }
 
 #pragma mark CoreLocationManagerDelegate
@@ -1133,8 +1199,7 @@ static MKWebView *webView;
     [self delegateDidFailToLocateUserWithError:error];
     [self setUserLocationMarkerVisible:NO];
     
-    if ([error code] == kCLErrorDenied)
-    {
+    if ([error code] == kCLErrorDenied) {
         [self setShowsUserLocation:NO];
     }
 }
