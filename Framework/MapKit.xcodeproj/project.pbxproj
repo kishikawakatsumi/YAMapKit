@@ -52,7 +52,7 @@
 		14C02349163612D1005CC1CC /* MKReverseGeocoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C02343163612D0005CC1CC /* MKReverseGeocoder.m */; };
 		14C0234A163612D1005CC1CC /* MKGeocoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C02344163612D0005CC1CC /* MKGeocoder.h */; };
 		14C0234B163612D1005CC1CC /* MKGeocoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C02345163612D1005CC1CC /* MKGeocoder.m */; };
-		14C0235416361392005CC1CC /* MKView.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C0234E16361391005CC1CC /* MKView.h */; };
+		14C0235416361392005CC1CC /* MKView.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C0234E16361391005CC1CC /* MKView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		14C0235516361392005CC1CC /* MKView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C0234F16361392005CC1CC /* MKView.m */; };
 		14C0235616361392005CC1CC /* MKOverlay.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C0235016361392005CC1CC /* MKOverlay.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		14C0235716361392005CC1CC /* MKAnnotation.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C0235116361392005CC1CC /* MKAnnotation.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -701,6 +701,7 @@
 				14C023B81636172B005CC1CC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
