@@ -1,0 +1,27 @@
+/* 
+  Localizable.strings
+  Demo
+
+  Created by katsumi-kishikawa on 2012/10/23.
+  Copyright (c) 2012年 kishikawa katsumi. All rights reserved.
+*/
+
+"Search or Address" = "Search or Address";
+"Search" = "Search";
+"Directions" = "Directions";
+
+"Info" = "Info";
+"Address" = "Address";
+
+"Drop Pin" = "Drop Pin";
+"Remove Pin" = "Remove Pin";
+"Replace Pin" = "Replace Pin";
+"Print" = "Print";
+"Dropped Pin" = "Dropped Pin";
+
+"Standard" = "Standard";
+"Classic" = "Classic";
+
+"Map" = "Map";
+"Satellite" = "Satellite";
+"Hybrid" = "Hybrid";
