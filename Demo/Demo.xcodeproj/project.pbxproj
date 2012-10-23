@@ -22,20 +22,20 @@
 		142D8AF4163330BC00800C64 /* ConfigurationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 142D8AF3163330BC00800C64 /* ConfigurationViewController.m */; };
 		142D8AF71633326600800C64 /* Placemark.m in Sources */ = {isa = PBXBuildFile; fileRef = 142D8AF61633326600800C64 /* Placemark.m */; };
 		142D8AFA163332E600800C64 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 142D8AF9163332E500800C64 /* DetailViewController.m */; };
-		14C023D016361836005CC1CC /* libMapKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 14C023CB1636180B005CC1CC /* libMapKit.a */; };
+		14C023E616361B96005CC1CC /* libMapKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 14C023E316361B8E005CC1CC /* libMapKit.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		14C023CA1636180B005CC1CC /* PBXContainerItemProxy */ = {
+		14C023E216361B8E005CC1CC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 14C023C21636180A005CC1CC /* MapKit.xcodeproj */;
+			containerPortal = 14C023DA16361B8E005CC1CC /* MapKit.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 14BEAF8E1636115300DD54D5;
 			remoteInfo = MapKit;
 		};
-		14C023CE16361831005CC1CC /* PBXContainerItemProxy */ = {
+		14C023E416361B93005CC1CC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 14C023C21636180A005CC1CC /* MapKit.xcodeproj */;
+			containerPortal = 14C023DA16361B8E005CC1CC /* MapKit.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 14BEAF8D1636115300DD54D5;
 			remoteInfo = MapKit;
@@ -66,7 +66,7 @@
 		142D8AF61633326600800C64 /* Placemark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Placemark.m; sourceTree = "<group>"; };
 		142D8AF8163332E500800C64 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		142D8AF9163332E500800C64 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
-		14C023C21636180A005CC1CC /* MapKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MapKit.xcodeproj; path = ../Framework/MapKit/MapKit.xcodeproj; sourceTree = "<group>"; };
+		14C023DA16361B8E005CC1CC /* MapKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MapKit.xcodeproj; path = ../Framework/MapKit.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,7 +78,7 @@
 				142D8A9F16332AC800800C64 /* Foundation.framework in Frameworks */,
 				142D8AA116332AC800800C64 /* CoreGraphics.framework in Frameworks */,
 				142D8AD716332C2D00800C64 /* CoreLocation.framework in Frameworks */,
-				14C023D016361836005CC1CC /* libMapKit.a in Frameworks */,
+				14C023E616361B96005CC1CC /* libMapKit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,7 +88,7 @@
 		142D8A8D16332AC800800C64 = {
 			isa = PBXGroup;
 			children = (
-				14C023C21636180A005CC1CC /* MapKit.xcodeproj */,
+				14C023DA16361B8E005CC1CC /* MapKit.xcodeproj */,
 				142D8AA216332AC800800C64 /* Demo */,
 				142D8A9B16332AC800800C64 /* Frameworks */,
 				142D8A9916332AC800800C64 /* Products */,
@@ -147,10 +147,10 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		14C023C31636180A005CC1CC /* Products */ = {
+		14C023DB16361B8E005CC1CC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				14C023CB1636180B005CC1CC /* libMapKit.a */,
+				14C023E316361B8E005CC1CC /* libMapKit.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -169,7 +169,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				14C023CF16361831005CC1CC /* PBXTargetDependency */,
+				14C023E516361B93005CC1CC /* PBXTargetDependency */,
 			);
 			name = Demo;
 			productName = Demo;
@@ -197,8 +197,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 14C023C31636180A005CC1CC /* Products */;
-					ProjectRef = 14C023C21636180A005CC1CC /* MapKit.xcodeproj */;
+					ProductGroup = 14C023DB16361B8E005CC1CC /* Products */;
+					ProjectRef = 14C023DA16361B8E005CC1CC /* MapKit.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -209,11 +209,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		14C023CB1636180B005CC1CC /* libMapKit.a */ = {
+		14C023E316361B8E005CC1CC /* libMapKit.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libMapKit.a;
-			remoteRef = 14C023CA1636180B005CC1CC /* PBXContainerItemProxy */;
+			remoteRef = 14C023E216361B8E005CC1CC /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -250,10 +250,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		14C023CF16361831005CC1CC /* PBXTargetDependency */ = {
+		14C023E516361B93005CC1CC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = MapKit;
-			targetProxy = 14C023CE16361831005CC1CC /* PBXContainerItemProxy */;
+			targetProxy = 14C023E416361B93005CC1CC /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
