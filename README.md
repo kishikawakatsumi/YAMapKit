@@ -3,7 +3,7 @@ YAMapKit
 
 Yet Another MapKit.framework based on Google Maps Javascript API. 
 Inspired by [MacMapKit](https://github.com/Oomph/MacMapKit).   
-You can use Google Maps on iOS 6 **just link this library**. YAMapKit is compatible with MapKit.framework.
+You can use Google Maps on iOS 6 **just link this library** in your application. YAMapKit is compatible with MapKit.framework.
 
 ------
 <img src="https://github.com/downloads/kishikawakatsumi/YAMapKit/1.png" alt="ScreenShot1" width="225px" style="width: 225px;" />&nbsp;
@@ -11,6 +11,7 @@ You can use Google Maps on iOS 6 **just link this library**. YAMapKit is compati
 <img src="https://github.com/downloads/kishikawakatsumi/YAMapKit/3.png" alt="ScreenShot3" width="225px" style="width: 225px;" />&nbsp;
 <img src="https://github.com/downloads/kishikawakatsumi/YAMapKit/4.png" alt="ScreenShot4" width="225px" style="width: 225px;" />&nbsp;
 <img src="https://github.com/downloads/kishikawakatsumi/YAMapKit/5.png" alt="ScreenShot5" width="225px" style="width: 225px;" />&nbsp;
+<img src="https://github.com/downloads/kishikawakatsumi/YAMapKit/6.png" alt="ScreenShot6" width="225px" style="width: 225px;" />&nbsp;
 
 
 It Works
