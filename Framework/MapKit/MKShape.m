@@ -6,7 +6,7 @@
 //  Copyright 2010 Centrix.ca. All rights reserved.
 //
 
-#import "MKShape.h"
+#import <MapKit/MKShape.h>
 
 @implementation MKShape
 

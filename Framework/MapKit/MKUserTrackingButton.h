@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MKMapView.h"
+#import <MapKit/MKMapView.h>
 
 @protocol MKUserTrackingButtonDelegate;
 @class MKUserTrackingBarButtonItem;

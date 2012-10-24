@@ -7,7 +7,7 @@
 //
 //
 
-#import "MKTouchesMovedGestureRecognizer.h"
+#import <MapKit/MKTouchesMovedGestureRecognizer.h>
 
 #define MKTouchesMinimumDuration  0.5
 

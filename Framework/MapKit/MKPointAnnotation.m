@@ -6,7 +6,7 @@
 //  Copyright 2010 Centrix.ca. All rights reserved.
 //
 
-#import "MKPointAnnotation.h"
+#import <MapKit/MKPointAnnotation.h>
 
 @implementation MKPointAnnotation
 

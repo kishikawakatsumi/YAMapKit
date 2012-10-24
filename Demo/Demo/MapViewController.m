@@ -122,6 +122,7 @@
                      [_mapView setCenterCoordinate:placemark.location.coordinate animated:NO];
                  }
                  MKPlacemark *annotation = [[MKPlacemark alloc] initWithPlacemark:placemark];
+                 annotation.title = searchBar.text;
                  [_mapView addAnnotation:annotation];
                  index++;
              }
@@ -212,8 +213,8 @@
     
     droppedPin = [[Placemark alloc] initWithCoordinate:centerCoordinate addressDictionary:nil];
     droppedPin.coordinate = centerCoordinate;
-    droppedPin.title = NSLocalizedString(@"Dropped Pin", nil);
-    [_mapView addAnnotation:droppedPin];
+//    droppedPin.title = NSLocalizedString(@"Dropped Pin", nil);
+//    [_mapView addAnnotation:droppedPin];
     
     CLLocation *location = [[CLLocation alloc] initWithLatitude:centerCoordinate.latitude longitude:centerCoordinate.longitude];
     [_geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error)

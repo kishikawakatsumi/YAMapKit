@@ -1,24 +1,24 @@
 //
-//  WebScriptObject.m
+//  MKWebScriptObject.m
 //  YAMapKit
 //
 //  Created by kishikawa katsumi on 2012/09/21.
 //  Copyright (c) 2012 kishikawa katsumi. All rights reserved.
 //
 
-#import "WebScriptObject.h"
-#import "WebScriptEngine.h"
+#import <MapKit/MKWebScriptObject.h>
+#import <MapKit/MKWebScriptEngine.h>
 
-@interface WebScriptObject ()
+@interface MKWebScriptObject ()
 
-@property (strong, nonatomic) WebScriptEngine *scriptEngine;
+@property (strong, nonatomic) MKWebScriptEngine *scriptEngine;
 @property (strong, nonatomic) NSString *scriptObject;
 
 @end
 
-@implementation WebScriptObject
+@implementation MKWebScriptObject
 
-- (id)initWithScriptEngine:(WebScriptEngine *)engine script:(NSString *)script {
+- (id)initWithScriptEngine:(MKWebScriptEngine *)engine script:(NSString *)script {
     self = [super init];
     if (self) {
         self.scriptEngine = engine;

@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MKOverlayView.h"
+#import <MapKit/MKOverlayView.h>
 
 @interface MKOverlayPathView : MKOverlayView {
     UIColor *fillColor;

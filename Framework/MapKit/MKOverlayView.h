@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MKOverlay.h"
-#import "MKView.h"
+#import <MapKit/MKOverlay.h>
+#import <MapKit/MKView.h>
 
 @interface MKOverlayView : MKView {
     id <MKOverlay> overlay;

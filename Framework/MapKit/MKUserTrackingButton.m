@@ -6,8 +6,8 @@
 //
 //
 
-#import "MKUserTrackingButton.h"
-#import "MKUserTrackingBarButtonItem.h"
+#import <MapKit/MKUserTrackingButton.h>
+#import <MapKit/MKUserTrackingBarButtonItem.h>
 
 ////////////////////////////////////////////////////////////////////////
 #pragma mark - Customize Section

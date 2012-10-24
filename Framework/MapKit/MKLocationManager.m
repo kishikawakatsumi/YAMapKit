@@ -6,9 +6,9 @@
 //
 //
 
-#import "MKLocationManager.h"
-#import "MKTouchesMovedGestureRecognizer.h"
-#import "MKMapView.h"
+#import <MapKit/MKLocationManager.h>
+#import <MapKit/MKTouchesMovedGestureRecognizer.h>
+#import <MapKit/MKMapView.h>
 
 @interface MKLocationManager ()
 

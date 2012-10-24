@@ -6,16 +6,16 @@
 //  Copyright (c) 2012 kishikawa katsumi. All rights reserved.
 //
 
-#import "WebScriptEngine.h"
-#import "WebScriptObject.h"
+#import <MapKit/MKWebScriptEngine.h>
+#import <MapKit/MKWebScriptObject.h>
 
-@interface WebScriptEngine ()
+@interface MKWebScriptEngine ()
 
 @property (strong, nonatomic) UIWebView *webView;
 
 @end
 
-@implementation WebScriptEngine
+@implementation MKWebScriptEngine
 
 - (id)initWithWebView:(UIWebView *)webView
 {
@@ -32,9 +32,9 @@
     if ([script hasPrefix:@"new "]) {
         NSString *varName = [NSString stringWithFormat:@"object%d", objectNumber++];
         NSString *newScript = [NSString stringWithFormat:@"var %@ = %@", varName, script];
-        NSLog(@"%@", newScript);
+//        NSLog(@"%@", newScript);
         [self.webView stringByEvaluatingJavaScriptFromString:newScript];
-        WebScriptObject *scriptObject = [[WebScriptObject alloc] initWithScriptEngine:self script:varName];
+        MKWebScriptObject *scriptObject = [[MKWebScriptObject alloc] initWithScriptEngine:self script:varName];
         return scriptObject;
     } else {
         return [self.webView stringByEvaluatingJavaScriptFromString:script];
@@ -46,11 +46,13 @@
     [script appendString:@"("];
     for (NSInteger i = 0; i < args.count; i++) {
         id arg = args[i];
-        if ([arg isKindOfClass:[WebScriptObject class]]) {
-            WebScriptObject *scriptObject = (WebScriptObject *)arg;
+        if ([arg isKindOfClass:[MKWebScriptObject class]]) {
+            MKWebScriptObject *scriptObject = (MKWebScriptObject *)arg;
             [script appendFormat:@"%@", scriptObject.scriptObject];
         } else if ([arg isKindOfClass:[NSNumber class]]) {
             [script appendFormat:@"%@", arg];
+        } else if ([arg isKindOfClass:[NSArray class]]) {
+            [script appendFormat:@"[%@]", [arg componentsJoinedByString:@","]];
         } else {
             [script appendFormat:@"'%@'", arg];
         }
@@ -59,7 +61,7 @@
         }
     }
     [script appendString:@");"];
-    NSLog(@"%@", script);
+//    NSLog(@"%@", script);
     [self.webView stringByEvaluatingJavaScriptFromString:script];
     return self;
 }

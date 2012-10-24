@@ -6,14 +6,12 @@
 //  Copyright 2010 Centrix.ca. All rights reserved.
 //
 
-#import "MKMultiPoint.h"
-
+#import <MapKit/MKMultiPoint.h>
 
 @implementation MKMultiPoint
 
 @synthesize coordinates;
 @synthesize coordinateCount;
-
 
 - (void)getCoordinates:(CLLocationCoordinate2D *)coords range:(NSRange)range
 {

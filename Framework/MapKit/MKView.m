@@ -6,9 +6,9 @@
 //  Copyright 2010 Centrix.ca. All rights reserved.
 //
 
-#import "MKView.h"
-#import "WebScriptEngine.h"
-#import "WebScriptObject.h"
+#import <MapKit/MKView.h>
+#import <MapKit/MKWebScriptEngine.h>
+#import <MapKit/MKWebScriptObject.h>
 
 @implementation MKView
 
@@ -22,9 +22,9 @@
     return [NSDictionary dictionary];
 }
 
-- (void)draw:(WebScriptObject *)overlayScriptObject
+- (void)draw:(MKWebScriptObject *)overlayScriptObject
 {
-    WebScriptEngine *windowScriptObject = overlayScriptObject.scriptEngine;
+    MKWebScriptEngine *windowScriptObject = overlayScriptObject.scriptEngine;
     NSDictionary *theOptions = [self options];
     
     for (NSString *key in [theOptions allKeys]) {
@@ -33,10 +33,10 @@
     }
 }
 
-- (WebScriptObject *)overlayScriptObjectFromMapScriptObject:(WebScriptObject *)mapScriptObject
+- (MKWebScriptObject *)overlayScriptObjectFromMapScriptObject:(MKWebScriptObject *)mapScriptObject
 {
     NSString *script = [NSString stringWithFormat:@"new %@()", [self viewPrototypeName]];
-    WebScriptObject *object = [mapScriptObject.scriptEngine evaluateWebScript:script];
+    MKWebScriptObject *object = [mapScriptObject.scriptEngine evaluateWebScript:script];
     return object;
 }
 

@@ -6,7 +6,7 @@
 //  Copyright 2010 Centrix.ca. All rights reserved.
 //
 
-#import "MKCircle.h"
+#import <MapKit/MKCircle.h>
 
 @interface MKCircle (Private)
 
@@ -22,7 +22,6 @@
 {
     return [[self alloc] initWithCenterCoordinate:aCoord radius:aRadius];
 }
-
 
 - (MKCoordinateRegion)region
 {

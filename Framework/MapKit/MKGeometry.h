@@ -10,7 +10,6 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MKFoundation.h>
 
-
 typedef struct {
     CLLocationDegrees latitudeDelta;
     CLLocationDegrees longitudeDelta;
@@ -20,7 +19,6 @@ typedef struct {
 	CLLocationCoordinate2D center;
 	MKCoordinateSpan span;
 } MKCoordinateRegion;
-
 
 NS_INLINE MKCoordinateSpan MKCoordinateSpanMake(CLLocationDegrees latitudeDelta, CLLocationDegrees longitudeDelta)
 {
@@ -37,9 +35,9 @@ NS_INLINE MKCoordinateRegion MKCoordinateRegionMake(CLLocationCoordinate2D cente
     region.span = span;
 	return region;
 }
-/*
+
 MK_EXTERN MKCoordinateRegion MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2D centerCoordinate, CLLocationDistance latitudinalMeters, CLLocationDistance longitudinalMeters);
-*/
+
 // Projected geometry is available in iPhone OS 4.0 and later
 #if (__IPHONE_4_0 <= __IPHONE_OS_VERSION_MAX_ALLOWED)
 
@@ -66,7 +64,7 @@ typedef struct {
 // 0.5, 1 screen point = 2 MKMapPoints.
 typedef CGFloat MKZoomScale;
 #endif
-/*
+
 MK_EXTERN const MKMapSize MKMapSizeWorld NS_AVAILABLE(NA, 4_0);
 // The rect that contains every map point in the world.
 MK_EXTERN const MKMapRect MKMapRectWorld NS_AVAILABLE(NA, 4_0);
@@ -79,10 +77,10 @@ MK_EXTERN CLLocationCoordinate2D MKCoordinateForMapPoint(MKMapPoint mapPoint) NS
 MK_EXTERN CLLocationDistance MKMetersPerMapPointAtLatitude(CLLocationDegrees latitude) NS_AVAILABLE(NA, 4_0);
 MK_EXTERN double MKMapPointsPerMeterAtLatitude(CLLocationDegrees latitude) NS_AVAILABLE(NA, 4_0);
 
-MK_EXTERN CLLocationDistance MKMetersBetweenMapPoints(MKMapPoint a, MKMapPoint b) NS_AVAILABLE(NA, 4_0);
+/*MK_EXTERN CLLocationDistance MKMetersBetweenMapPoints(MKMapPoint a, MKMapPoint b) NS_AVAILABLE(NA, 4_0);*/
 
 MK_EXTERN const MKMapRect MKMapRectNull NS_AVAILABLE(NA, 4_0);
-*/
+
 #if (__IPHONE_4_0 <= __IPHONE_OS_VERSION_MAX_ALLOWED)
 
 // Geometric operations on MKMapPoint/Size/Rect.  See CGGeometry.h for
@@ -151,12 +149,12 @@ NS_INLINE NSString *MKStringFromMapRect(MKMapRect rect) {
     return [NSString stringWithFormat:@"{%@, %@}", MKStringFromMapPoint(rect.origin), MKStringFromMapSize(rect.size)];
 }
 #endif
-/*
+
 MK_EXTERN MKMapRect MKMapRectUnion(MKMapRect rect1, MKMapRect rect2) NS_AVAILABLE(NA, 4_0);
 MK_EXTERN MKMapRect MKMapRectIntersection(MKMapRect rect1, MKMapRect rect2) NS_AVAILABLE(NA, 4_0);
 MK_EXTERN MKMapRect MKMapRectInset(MKMapRect rect, double dx, double dy) NS_AVAILABLE(NA, 4_0);
 MK_EXTERN MKMapRect MKMapRectOffset(MKMapRect rect, double dx, double dy) NS_AVAILABLE(NA, 4_0);
-MK_EXTERN void MKMapRectDivide(MKMapRect rect, MKMapRect *slice, MKMapRect *remainder, double amount, CGRectEdge edge) NS_AVAILABLE(NA, 4_0);
+/*MK_EXTERN void MKMapRectDivide(MKMapRect rect, MKMapRect *slice, MKMapRect *remainder, double amount, CGRectEdge edge) NS_AVAILABLE(NA, 4_0);*/
 
 MK_EXTERN BOOL MKMapRectContainsPoint(MKMapRect rect, MKMapPoint point) NS_AVAILABLE(NA, 4_0);
 MK_EXTERN BOOL MKMapRectContainsRect(MKMapRect rect1, MKMapRect rect2) NS_AVAILABLE(NA, 4_0);
@@ -169,8 +167,8 @@ MK_EXTERN BOOL MKMapRectSpans180thMeridian(MKMapRect rect) NS_AVAILABLE(NA, 4_0)
 // that lies outside of the world rect wrapped around to the other side of the
 // world.  The portion of the rect that lies inside the world rect can be
 // determined with MKMapRectIntersection(rect, MKMapRectWorld).
-MK_EXTERN MKMapRect MKMapRectRemainder(MKMapRect rect) NS_AVAILABLE(NA, 4_0);
-*/
+/*MK_EXTERN MKMapRect MKMapRectRemainder(MKMapRect rect) NS_AVAILABLE(NA, 4_0);*/
+
 
 @interface NSValue (NSValueMapKitGeometryExtensions)
 

@@ -2,12 +2,12 @@
 //  MKPinAnnotationView.h
 //  MapKit
 //
-//  Created by Rick Fillion on 7/18/10.
-//  Copyright 2010 Centrix.ca. All rights reserved.
+//  Created by kishikawa katsumi on 2012/10/23.
+//
 //
 
 #import <UIKit/UIKit.h>
-#import "MKAnnotationView.h"
+#import <MapKit/MKAnnotationView.h>
 
 enum {
     MKPinAnnotationColorRed = 0,

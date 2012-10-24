@@ -8,14 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@class WebScriptEngine;
-@class WebScriptObject;
+@class MKWebScriptEngine;
+@class MKWebScriptObject;
 
 @interface MKWebView : UIWebView
 
 @property (nonatomic, readonly) NSDate *lastHitTestDate;
-@property (nonatomic, readonly) WebScriptEngine *webScriptEngine;
+@property (nonatomic, readonly) MKWebScriptEngine *webScriptEngine;
 
-- (WebScriptObject *)windowScriptObject;
+- (MKWebScriptObject *)windowScriptObject;
 
 @end

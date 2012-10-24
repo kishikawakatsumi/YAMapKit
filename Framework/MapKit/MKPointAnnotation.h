@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CLLocation.h>
-#import "MKShape.h"
+#import <MapKit/MKShape.h>
 
 @interface MKPointAnnotation : MKShape {
     @package

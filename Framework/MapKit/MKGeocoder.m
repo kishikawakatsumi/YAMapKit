@@ -10,11 +10,11 @@
  Note:  Read comments at the top of MKReverseGeocoder, as they apply here too.
  */
 
-#import "MKGeocoder.h"
-#import "MKPlacemark.h"
-#import "MKWebView.h"
-#import "WebScriptEngine.h"
-#import "WebScriptObject.h"
+#import <MapKit/MKGeocoder.h>
+#import <MapKit/MKPlacemark.h>
+#import <MapKit/MKWebView.h>
+#import <MapKit/MKWebScriptEngine.h>
+#import <MapKit/MKWebScriptObject.h>
 
 @interface MKGeocoder () <UIWebViewDelegate>
 
@@ -135,7 +135,6 @@
 
 - (void)didSucceedWithResult:(NSString *)jsonEncodedGeocoderResult;
 {
-    //NSLog(@"didSucceedWithResult: %@", jsonEncodedGeocoderResult);
     if (!querying)
         return;
     
@@ -153,7 +152,6 @@
 
 - (void)didFailWithError:(NSString *)domain
 {
-    //NSLog(@"didFailWithErorr: %@", domain);
     if (!querying)
         return;
     
@@ -180,13 +178,11 @@
 
 //- (void)webView:(WebView *)sender didClearWindowObject:(WebScriptObject *)windowScriptObject forFrame:(WebFrame *)frame
 //{
-//    //NSLog(@"didClearWindowObjet");
 //    [windowScriptObject setValue:self forKey:@"MKGeocoder"];
 //}
 
 - (void)webView:(MKWebView *)webView didFailLoadWithError:(NSError *)error
 {
-    //NSLog(@"didFinishLoad:");
 //    [[webView windowScriptObject] setValue:self forKey:@"MKGeocoder"];
 //    webViewLoaded = YES;
 //    if (self.querying && [sender mainFrame] == frame)
@@ -203,7 +199,8 @@
     webView.delegate = self;
     
 #include "MapKit.html.h"
-    [webView loadHTMLString:[NSString stringWithCString:MapKit_html length:MapKit_html_len] baseURL:[NSURL fileURLWithPath:@"MapKit.html"]];
+    NSString *html = [[NSString alloc] initWithBytes:MapKit_html length:MapKit_html_len encoding:NSUTF8StringEncoding];
+    [webView loadHTMLString:html baseURL:[NSURL fileURLWithPath:@"MapKit.html"]];
 }
 
 - (void)destroyWebView
@@ -213,7 +210,6 @@
 
 - (void)_start
 {
-    //NSLog(@"start");
     NSArray *args = nil;
     if (hasOriginatingCoordinate)
         args = @[self.address, @(originatingCoordinate.latitude), @(originatingCoordinate.longitude)];
@@ -221,15 +217,11 @@
         args = @[self.address];
     }
 
-
-    WebScriptObject *webScriptObject = [webView windowScriptObject];
-    //NSLog(@"got webscriptobject");
+    MKWebScriptObject *webScriptObject = [webView windowScriptObject];
     id val = [webScriptObject.scriptEngine callWebScriptMethod:@"geocode" withArguments:args];
-    //NSLog(@"val = %@", val);
     if (!val)
     {
         // something went wrong, call the failure delegate
-        //NSLog(@"MKReverseGeocoder tried to start but the script wasn't ready, rescheduling");
         [self performSelector:@selector(_start) withObject:nil afterDelay:0.1];
     }
 }

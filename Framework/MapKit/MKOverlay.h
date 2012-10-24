@@ -7,9 +7,9 @@
  *
  */
 
-#import "MKAnnotation.h"
-#import "MKTypes.h"
-#import "MKGeometry.h"
+#import <MapKit/MKAnnotation.h>
+#import <MapKit/MKTypes.h>
+#import <MapKit/MKGeometry.h>
 
 @protocol MKOverlay <MKAnnotation>
 

@@ -6,7 +6,7 @@
 //
 //
 
-#import "MKMapItem.h"
+#import <MapKit/MKMapItem.h>
 
 @implementation MKMapItem
 

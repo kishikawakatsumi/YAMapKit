@@ -7,19 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MKOverlayPathView.h"
+#import <MapKit/MKOverlayPathView.h>
 
-@class WebScriptObject;
+@class MKWebScriptObject;
 @class MKCircle;
 
 @interface MKCircleView : MKOverlayPathView {
-    WebScriptObject *latlngCenter;
+    MKWebScriptObject *latlngCenter;
 }
 
 @property (nonatomic, readonly) MKCircle *circle;
 
 - (id)initWithCircle:(MKCircle *)circle;
-
-
 
 @end

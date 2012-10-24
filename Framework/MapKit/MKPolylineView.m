@@ -6,8 +6,8 @@
 //  Copyright 2010 Centrix.ca. All rights reserved.
 //
 
-#import "MKPolylineView.h"
-#import "WebScriptObject.h"
+#import <MapKit/MKPolylineView.h>
+#import <MapKit/MKWebScriptObject.h>
 
 @implementation MKPolylineView
 
@@ -40,7 +40,7 @@
     return [options copy];
 }
 
-- (void)draw:(WebScriptObject *)overlayScriptObject
+- (void)draw:(MKWebScriptObject *)overlayScriptObject
 {
     if (!path) {
         CLLocationCoordinate2D *coordinates = malloc(sizeof(CLLocationCoordinate2D) * [self polyline].coordinateCount);
@@ -50,9 +50,8 @@
 
         for (int i = 0; i< [self polyline].coordinateCount; i++) {
             CLLocationCoordinate2D coordinate = coordinates[i];
-            NSString *script = [NSString stringWithFormat:@"new google.maps.LatLng(%f, %f);", coordinate.latitude, coordinate.longitude];
-            WebScriptObject *latlng = [[WebScriptObject alloc] initWithScriptEngine:overlayScriptObject.scriptEngine script:script];
-            [newPath addObject:latlng];
+            NSString *script = [NSString stringWithFormat:@"new google.maps.LatLng(%f, %f)", coordinate.latitude, coordinate.longitude];
+            [newPath addObject:script];
         }
         path = [newPath copy];
     }

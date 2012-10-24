@@ -6,7 +6,7 @@
 //  Copyright 2010 Centrix.ca. All rights reserved.
 //
 
-#import "MKPolyline.h"
+#import <MapKit/MKPolyline.h>
 
 @interface MKPolyline (Private)
 

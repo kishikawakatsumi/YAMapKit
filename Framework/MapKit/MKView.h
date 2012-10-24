@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class WebScriptObject;
+@class MKWebScriptObject;
 
 @interface MKView : UIView
 
@@ -16,7 +16,7 @@
 @property (nonatomic, readonly) NSString *viewPrototypeName;
 @property (nonatomic, readonly) NSDictionary *options;
 
-- (void)draw:(WebScriptObject *)overlayScriptObject;
-- (WebScriptObject *)overlayScriptObjectFromMapScriptObject:(WebScriptObject *)mapScriptObject;
+- (void)draw:(MKWebScriptObject *)overlayScriptObject;
+- (MKWebScriptObject *)overlayScriptObjectFromMapScriptObject:(MKWebScriptObject *)mapScriptObject;
 
 @end

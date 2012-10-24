@@ -6,9 +6,9 @@
 //  Copyright 2010 Centrix.ca. All rights reserved.
 //
 
-#import "MKCircleView.h"
-#import "MKCircle.h"
-#import "WebScriptObject.h"
+#import <MapKit/MKCircleView.h>
+#import <MapKit/MKCircle.h>
+#import <MapKit/MKWebScriptObject.h>
 
 @implementation MKCircleView
 
@@ -24,7 +24,6 @@
 {
     return [super overlay];
 }
-
 
 - (NSString *)viewPrototypeName
 {
@@ -44,10 +43,10 @@
     return [options copy];
 }
 
-- (void)draw:(WebScriptObject *)overlayScriptObject
+- (void)draw:(MKWebScriptObject *)overlayScriptObject
 {
-    NSString *script = [NSString stringWithFormat:@"new google.maps.LatLng(%f, %f);", self.circle.coordinate.latitude, self.circle.coordinate.longitude];
-    latlngCenter = [[WebScriptObject alloc] initWithScriptEngine:overlayScriptObject.scriptEngine script:script];
+    NSString *script = [NSString stringWithFormat:@"new google.maps.LatLng(%f, %f)", self.circle.coordinate.latitude, self.circle.coordinate.longitude];
+    latlngCenter = [[MKWebScriptObject alloc] initWithScriptEngine:overlayScriptObject.scriptEngine script:script];
     [super draw:overlayScriptObject];
 }
 

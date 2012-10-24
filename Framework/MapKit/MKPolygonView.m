@@ -6,12 +6,12 @@
 //  Copyright 2010 Centrix.ca. All rights reserved.
 //
 
-#import "MKPolygonView.h"
-#import "WebScriptObject.h"
+#import <MapKit/MKPolygonView.h>
+#import <MapKit/MKWebScriptObject.h>
 
 @interface MKPolygonView (Private)
 
-- (NSArray *)pathForPolygon:(MKPolygon *)aPolygon webScriptObject:(WebScriptObject *)webScriptObject;
+- (NSArray *)pathForPolygon:(MKPolygon *)aPolygon webScriptObject:(MKWebScriptObject *)webScriptObject;
 
 @end
 
@@ -53,7 +53,7 @@
     return [options copy];
 }
 
-- (void)draw:(WebScriptObject *)overlayScriptObject
+- (void)draw:(MKWebScriptObject *)overlayScriptObject
 {
     if (!path) {
         path = [self pathForPolygon:[self polygon] webScriptObject:overlayScriptObject];
@@ -72,7 +72,7 @@
 
 #pragma mark Private
 
-- (NSArray *)pathForPolygon:(MKPolygon *)aPolygon webScriptObject:(WebScriptObject *)webScriptObject
+- (NSArray *)pathForPolygon:(MKPolygon *)aPolygon webScriptObject:(MKWebScriptObject *)webScriptObject
 {
     CLLocationCoordinate2D *coordinates = malloc(sizeof(CLLocationCoordinate2D) * aPolygon.coordinateCount);
     NSRange range = NSMakeRange(0, aPolygon.coordinateCount);
@@ -81,9 +81,8 @@
     
     for (int i = 0; i< aPolygon.coordinateCount; i++) {
         CLLocationCoordinate2D coordinate = coordinates[i];
-        NSString *script = [NSString stringWithFormat:@"new google.maps.LatLng(%f, %f);", coordinate.latitude, coordinate.longitude];
-        WebScriptObject *latlng = [[WebScriptObject alloc] initWithScriptEngine:webScriptObject.scriptEngine script:script];
-        [newPath addObject:latlng];
+        NSString *script = [NSString stringWithFormat:@"new google.maps.LatLng(%f, %f)", coordinate.latitude, coordinate.longitude];
+        [newPath addObject:script];
     }
     return [newPath copy];
 }

@@ -6,7 +6,7 @@
 //  Copyright 2010 Centrix.ca. All rights reserved.
 //
 
-#import "MKPolygon.h"
+#import <MapKit/MKPolygon.h>
 
 @interface MKPolygon (Private)
 

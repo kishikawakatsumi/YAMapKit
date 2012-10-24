@@ -6,11 +6,12 @@
 //  Copyright 2010 Centrix.ca. All rights reserved.
 //
 
-#import "MKAnnotationView.h"
-#import "MKAnnotation.h"
-#import "MKMapView.h"
-#import "WebScriptEngine.h"
-#import "WebScriptObject.h"
+#import <MapKit/MKAnnotationView.h>
+#import <MapKit/MKAnnotation.h>
+#import <MapKit/MKMapView.h>
+#import <MapKit/MKWebScriptEngine.h>
+#import <MapKit/MKWebScriptObject.h>
+#import <QuartzCore/QuartzCore.h>
 
 @implementation MKAnnotationView
 
@@ -26,10 +27,21 @@
 @synthesize draggable;
 @synthesize dragState;
 
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        _imageSize = CGSizeZero;
+    }
+    return self;
+}
+
 - (id)initWithAnnotation:(id <MKAnnotation>)anAnnotation reuseIdentifier:(NSString *)aReuseIdentifier
 {
     if (self = [super init])
     {
+        _imageSize = CGSizeZero;
+        
         reuseIdentifier = aReuseIdentifier;
         self.annotation = anAnnotation;
     }
@@ -51,9 +63,16 @@
     return @"AnnotationOverlay";
 }
 
-- (CGSize)imageSize
+- (void)setImage:(UIImage *)image
 {
-    return CGSizeZero;
+    static NSUInteger number = 0;
+    _image = image;
+    NSString *tmp = NSTemporaryDirectory();
+    NSString *file = [NSString stringWithFormat:@"MKAnnotationView-custom-image%d", number++];
+    NSString *path = [tmp stringByAppendingPathComponent:file];
+    imageUrl = path;
+    NSData *data = UIImagePNGRepresentation(image);
+    [data writeToFile:imageUrl atomically:YES];
 }
 
 - (NSDictionary *)options
@@ -61,6 +80,14 @@
     NSMutableDictionary *options = [NSMutableDictionary dictionaryWithDictionary:[super options]];
     
     if (self.imageUrl) {
+        [options setObject:self.imageUrl forKey:@"imageUrl"];
+    } else {
+        self.imageSize = self.bounds.size;
+        UIGraphicsBeginImageContextWithOptions(self.bounds.size, NO, 0.0f);
+        [self.layer renderInContext:UIGraphicsGetCurrentContext()];
+        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        self.image = image;
         [options setObject:self.imageUrl forKey:@"imageUrl"];
     }
     if (!CGSizeEqualToSize(self.imageSize, CGSizeZero)) {
@@ -72,7 +99,7 @@
         [options setObject:latlngCenter forKey:@"position"];
     }
     
-    if ([self.annotation title]) {
+    if ([self.annotation respondsToSelector:@selector(title)] && self.annotation.title) {
         [options setObject:[self.annotation title] forKey:@"title"];
     }
     
@@ -81,7 +108,7 @@
     return [options copy];
 }
 
-- (void)draw:(WebScriptObject *)overlayScriptObject
+- (void)draw:(MKWebScriptObject *)overlayScriptObject
 {
     NSString *script = [NSString stringWithFormat:@"new google.maps.LatLng(%f, %f);", self.annotation.coordinate.latitude, self.annotation.coordinate.longitude];
     latlngCenter = [overlayScriptObject.scriptEngine evaluateWebScript:script];

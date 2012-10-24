@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface WebScriptEngine : NSObject
+@interface MKWebScriptEngine : NSObject
 
 - (id)initWithWebView:(UIWebView *)webView;
 - (id)evaluateWebScript:(NSString *)script;

@@ -6,7 +6,7 @@
 //  Copyright 2010 Centrix.ca. All rights reserved.
 //
 
-#import "MKUserLocation.h"
+#import <MapKit/MKUserLocation.h>
 
 @implementation MKUserLocation
 

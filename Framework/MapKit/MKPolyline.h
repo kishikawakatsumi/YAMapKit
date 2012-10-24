@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MKMultiPoint.h"
-#import "MKOverlay.h"
+#import <MapKit/MKMultiPoint.h>
+#import <MapKit/MKOverlay.h>
 
 @interface MKPolyline : MKMultiPoint <MKOverlay>
 

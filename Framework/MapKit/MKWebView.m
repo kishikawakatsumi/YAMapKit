@@ -6,13 +6,13 @@
 //  Copyright (c) 2012 kishikawa katsumi. All rights reserved.
 //
 
-#import "MKWebView.h"
-#import "WebScriptEngine.h"
-#import "WebScriptObject.h"
+#import <MapKit/MKWebView.h>
+#import <MapKit/MKWebScriptEngine.h>
+#import <MapKit/MKWebScriptObject.h>
 
 @interface MKWebView ()
 
-@property (nonatomic, readwrite) WebScriptObject *webScriptObject;
+@property (nonatomic, readwrite) MKWebScriptObject *webScriptObject;
 
 @end
 
@@ -23,10 +23,10 @@
     return [super hitTest:point withEvent:event];
 }
 
-- (WebScriptObject *)windowScriptObject {
+- (MKWebScriptObject *)windowScriptObject {
     if (!_webScriptObject) {
-        _webScriptEngine = [[WebScriptEngine alloc] initWithWebView:self];
-        _webScriptObject = [[WebScriptObject alloc] initWithScriptEngine:_webScriptEngine script:nil];
+        _webScriptEngine = [[MKWebScriptEngine alloc] initWithWebView:self];
+        _webScriptObject = [[MKWebScriptObject alloc] initWithScriptEngine:_webScriptEngine script:nil];
     }
     
     return _webScriptObject;

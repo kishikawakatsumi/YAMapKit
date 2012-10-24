@@ -6,7 +6,7 @@
 //  Copyright 2010 Centrix.ca. All rights reserved.
 //
 
-#import "MKOverlayView.h"
+#import <MapKit/MKOverlayView.h>
 
 @implementation MKOverlayView
 

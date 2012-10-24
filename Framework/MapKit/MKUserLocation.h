@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
-#import "MKAnnotation.h"
+#import <MapKit/MKAnnotation.h>
 
 @class CLLocation;
 

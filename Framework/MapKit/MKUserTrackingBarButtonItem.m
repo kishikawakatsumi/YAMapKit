@@ -6,39 +6,38 @@
 //
 //
 
-#import "MKUserTrackingBarButtonItem.h"
-#import "MKUserTrackingButton.h"
-#import "MKLocationManager.h"
+#import <MapKit/MKUserTrackingBarButtonItem.h>
+#import <MapKit/MKUserTrackingButton.h>
+#import <MapKit/MKLocationManager.h>
 
 @interface MKUserTrackingBarButtonItem ()
 
-+ (int)_activityIndicatorStyle;
-+ (Class)_activityIndicatorClass;
-@property(retain, nonatomic) UIView *_associatedView;
-@property(retain, nonatomic) UINavigationBar *_navigationBar;
-@property(retain, nonatomic) UIToolbar *_toolbar;
-@property(nonatomic) MKUserTrackingMode _state;
-@property(retain, nonatomic) UIImageView *_imageView;
+//+ (int)_activityIndicatorStyle;
+//+ (Class)_activityIndicatorClass;
+//@property(retain, nonatomic) UIView *_associatedView;
+//@property(retain, nonatomic) UINavigationBar *_navigationBar;
+//@property(retain, nonatomic) UIToolbar *_toolbar;
+//@property(nonatomic) MKUserTrackingMode _state;
+//@property(retain, nonatomic) UIImageView *_imageView;
+//@property(retain, nonatomic) UIActivityIndicatorView *_progressIndicator;
+//- (void)_goToNextMode:(id)arg1;
+//- (void)_updateState;
+//- (void)setState:(int)arg1;
+//- (BOOL)_shouldAnimateFromState:(int)arg1 toState:(int)arg2;
+//- (id)_imageForState:(int)arg1;
+//- (int)_styleForState:(int)arg1;
+//- (float)_verticalOffsetForState:(int)arg1;
+//- (void)animationDidStop:(id)arg1 finished:(BOOL)arg2;
+//- (id)_contentAnimation;
+//- (id)_expandAnimation;
+//- (id)_shrinkAnimation;
+//- (void)observeValueForKeyPath:(id)arg1 ofObject:(id)arg2 change:(id)arg3 context:(void *)arg4;
+//- (id)createViewForNavigationItem:(id)arg1;
+//- (id)createViewForToolbar:(id)arg1;
+//- (void)setEnabled:(BOOL)arg1;
+//- (void)_repositionViews;
+//- (BOOL)_isInMiniBar;
 @property(retain, nonatomic) MKUserTrackingButton *_userTrackingButton;
-@property(retain, nonatomic) UIActivityIndicatorView *_progressIndicator;
-- (void)_goToNextMode:(id)arg1;
-- (void)_updateState;
-- (void)setState:(int)arg1;
-- (BOOL)_shouldAnimateFromState:(int)arg1 toState:(int)arg2;
-- (id)_imageForState:(int)arg1;
-- (int)_styleForState:(int)arg1;
-- (float)_verticalOffsetForState:(int)arg1;
-- (void)animationDidStop:(id)arg1 finished:(BOOL)arg2;
-- (id)_contentAnimation;
-- (id)_expandAnimation;
-- (id)_shrinkAnimation;
-- (void)observeValueForKeyPath:(id)arg1 ofObject:(id)arg2 change:(id)arg3 context:(void *)arg4;
-- (id)createViewForNavigationItem:(id)arg1;
-- (id)createViewForToolbar:(id)arg1;
-- (void)setEnabled:(BOOL)arg1;
-- (void)_repositionViews;
-- (BOOL)_isInMiniBar;
-- (void)dealloc;
 
 @end
 
@@ -50,7 +49,6 @@
 
 - (id)initWithMapView:(MKMapView *)mapView {
     if ((self = [self initWithTrackingMode:MKUserTrackingModeNone startListening:YES])) {
-        self._state = mapView.userTrackingMode;
         self.mapView = mapView;
         self.delegate = [MKLocationManager sharedInstance];
         
@@ -100,16 +98,6 @@
     UIView *view = function(self, _cmd, arg1);
     [view addSubview:__userTrackingButton];
     return view;
-}
-
-- (void)_updateState
-{
-    
-}
-
-- (void)_goToNextMode:(id)sender
-{
-    
 }
 
 ////////////////////////////////////////////////////////////////////////

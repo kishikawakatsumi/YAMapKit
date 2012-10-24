@@ -1,7 +1,7 @@
 <html>
 <head>
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true&v=3.6"></script>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true&v=3.9"></script>
 
 <style type="text/css">
     body {
@@ -790,14 +790,19 @@
     
     function setRegionAnimated(centerLatitude, centerLongitude, latitudeDelta, longitudeDelta, animated)
     {
-        var sw = new google.maps.LatLng(centerLatitude - latitudeDelta/2.0 , centerLongitude - longitudeDelta/2.0);
-        var ne = new google.maps.LatLng(centerLatitude + latitudeDelta/2.0 , centerLongitude + longitudeDelta/2.0);
+        var sw = new google.maps.LatLng(centerLatitude - latitudeDelta / 2.0 , centerLongitude - longitudeDelta / 2.0);
+        var ne = new google.maps.LatLng(centerLatitude + latitudeDelta / 2.0 , centerLongitude + longitudeDelta / 2.0);
         var center = new google.maps.LatLng(centerLatitude, centerLongitude);
         var bounds = new google.maps.LatLngBounds(sw, ne);
-        if (animated == true)
-        map.panToBounds(bounds);
+        if (animated == true) {
+            map.fitBounds(bounds);
+            map.panTo(center);
+        }
         else
-        map.fitBounds(bounds);
+        {
+            map.fitBounds(bounds);
+            map.setCenter(center);
+        }
     }
     
     // User Location Functions
@@ -825,7 +830,9 @@
     function isUserLocationVisible()
     {
         if (userLocationMarker == null)
-        return false;
+        {
+            return false;
+        }
         var region = map.getBounds();
         return (region.contains(userLocationMarker.getCenter()));
     }
@@ -835,7 +842,9 @@
     function addOverlay(anOverlay)
     {
         if (overlays.indexOf(anOverlay) != -1)
-        return false;
+        {
+            return false;
+        }
         
         anOverlay.setMap(map);
         overlays.push(anOverlay);
@@ -857,7 +866,9 @@
     function removeOverlay(anOverlay)
     {
         if (overlays.indexOf(anOverlay) == -1)
-        return;
+        {
+            return;
+        }
         anOverlay.setMap(null);
         overlays.filter(function(element, index, array) { return element != anOverlay  });
     }
@@ -866,8 +877,9 @@
     
     function addAnnotation(anAnnotation)
     {
-        if (annotations.indexOf(anAnnotation) != -1)
-        return false;
+        if (annotations.indexOf(anAnnotation) != -1) {
+            return false;
+        }
         
         anAnnotation.setMap(map);
         annotations.push(anAnnotation);
@@ -901,16 +913,18 @@
     
     function removeAnnotation(anAnnotation)
     {
-        if (annotations.indexOf(anAnnotation) == -1)
-        return;
+        if (annotations.indexOf(anAnnotation) == -1) {
+            return;
+        }
         anAnnotation.setMap(null);
         annotations.filter(function(element, index, array) { return element != anAnnotation  });
     }
     
     function coordinateForAnnotation(anAnnotation)
     {
-        if (!anAnnotation || annotations.indexOf(anAnnotation) == -1)
-        return JSON.stringify({"latitude": 0, "longitude":0});
+        if (!anAnnotation || annotations.indexOf(anAnnotation) == -1) {
+            return JSON.stringify({"latitude": 0, "longitude":0});
+        }
         
         var latlong = anAnnotation.get('position');
         return JSON.stringify({"latitude":latlong.lat(), "longitude":latlong.lng()});
@@ -918,16 +932,18 @@
     
     function setAnnotationCalloutHidden(anAnnotation, isHidden)
     {
-        if (annotations.indexOf(anAnnotation) == -1)
-        return;
+        if (annotations.indexOf(anAnnotation) == -1) {
+            return;
+        }
         
         anAnnotation.setCalloutHidden(isHidden);
     }
     
     function setAnnotationCalloutText(anAnnotation, text)
     {
-        if (annotations.indexOf(anAnnotation) == -1)
-        return;
+        if (annotations.indexOf(anAnnotation) == -1) {
+            return;
+        }
         
         anAnnotation.setCalloutText(text);
     }

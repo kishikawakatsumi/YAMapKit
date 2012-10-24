@@ -8,11 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-@class WebScriptEngine;
+@class MKWebScriptEngine;
 
-@interface WebScriptObject : NSObject
+@interface MKWebScriptObject : NSObject
 
-- (id)initWithScriptEngine:(WebScriptEngine *)engine script:(NSString *)script;
+- (id)initWithScriptEngine:(MKWebScriptEngine *)engine script:(NSString *)script;
 - (id)scriptEngine;
 - (id)scriptObject;
 

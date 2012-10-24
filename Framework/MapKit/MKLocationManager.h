@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
-#import "MKUserTrackingBarButtonItem.h"
-#import "MKUserTrackingButton.h"
+#import <MapKit/MKUserTrackingBarButtonItem.h>
+#import <MapKit/MKUserTrackingButton.h>
 
 /**
  Singleton class that acts as the Location Manager and it's delegate

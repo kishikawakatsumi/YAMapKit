@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MKView.h"
+#import <MapKit/MKFoundation.h>
+#import <MapKit/MKView.h>
 
-@class MKMapView, WebScriptObject;
+// Post this notification to re-query callout information.
+MK_EXTERN NSString * const MKAnnotationCalloutInfoDidChangeNotification;
+
+#if (__IPHONE_4_0 <= __IPHONE_OS_VERSION_MAX_ALLOWED)
 
 enum {
     MKAnnotationViewDragStateNone = 0,      // View is at rest, sitting on the map.
@@ -21,6 +25,9 @@ enum {
 
 typedef NSUInteger MKAnnotationViewDragState;
 
+#endif // #if (__IPHONE_4_0 <= __IPHONE_OS_VERSION_MAX_ALLOWED)
+
+@class MKMapView, MKAnnotationViewInternal;
 @protocol MKAnnotation;
 
 @interface MKAnnotationView : MKView {
@@ -36,26 +43,26 @@ typedef NSUInteger MKAnnotationViewDragState;
     BOOL draggable;
     MKAnnotationViewDragState dragState;
 @private
-    WebScriptObject *markerImage;
-    WebScriptObject *latlngCenter;
+    MKWebScriptObject *markerImage;
+    MKWebScriptObject *latlngCenter;
 }
 
 - (id)initWithAnnotation:(id <MKAnnotation>)annotation reuseIdentifier:(NSString *)reuseIdentifier;
 
 @property (nonatomic, readonly) NSString *reuseIdentifier;
+
 // Classes that override must call super.
 - (void)prepareForReuse;
 
 @property (nonatomic, retain) id <MKAnnotation> annotation;
 
-@property (nonatomic, copy) NSString *imageUrl;
-@property (nonatomic, assign) CGSize imageSize;
+@property (nonatomic, retain) UIImage *image;
 
 // By default, the center of annotation view is placed over the coordinate of the annotation.
-// centerOffset is the offset in pixels from the center of the annotion view.
+// centerOffset is the offset in screen points from the center of the annotion view.
 @property (nonatomic) CGPoint centerOffset;
 
-// calloutOffset is the offset in pixels from the top-middle of the annotation view, where the anchor of the callout should be shown.
+// calloutOffset is the offset in screen points from the top-middle of the annotation view, where the anchor of the callout should be shown.
 @property (nonatomic) CGPoint calloutOffset;
 
 // Defaults to YES. If NO, ignores touch events and subclasses may draw differently.
@@ -71,18 +78,27 @@ typedef NSUInteger MKAnnotationViewDragState;
 // If YES, a standard callout bubble will be shown when the annotation is selected.
 // The annotation must have a title for the callout to be shown.
 @property (nonatomic) BOOL canShowCallout;
+
+// The left accessory view to be used in the standard callout.
 @property (retain, nonatomic) UIView *leftCalloutAccessoryView;
+
+// The right accessory view to be used in the standard callout.
 @property (retain, nonatomic) UIView *rightCalloutAccessoryView;
 
-
-// If YES and the underlying id<MKAnnotation> responds to setCoordinate:, 
+// If YES and the underlying id<MKAnnotation> responds to setCoordinate:,
 // the user will be able to drag this annotation view around the map.
-@property (nonatomic, getter=isDraggable) BOOL draggable;
+@property (nonatomic, getter=isDraggable) BOOL draggable NS_AVAILABLE(NA, 4_0);
 
 // Automatically set to MKAnnotationViewDragStateStarting, Canceling, and Ending when necessary.
 // Implementer is responsible for transitioning to Dragging and None states as appropriate.
-@property (nonatomic) MKAnnotationViewDragState dragState;
+@property (nonatomic) MKAnnotationViewDragState dragState NS_AVAILABLE(NA, 4_0);
+
+// Developers targeting iOS 4.2 and after must use setDragState:animated: instead of setDragState:.
+- (void)setDragState:(MKAnnotationViewDragState)newDragState animated:(BOOL)animated NS_AVAILABLE(NA, 4_2);
 
 - (void)setTransformAccordingToMapView:(MKMapView *)mapView;
+
+@property (nonatomic, copy) NSString *imageUrl;
+@property (nonatomic, assign) CGSize imageSize;
 
 @end

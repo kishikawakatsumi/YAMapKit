@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
-#import "MKShape.h"
-#import "MKOverlay.h"
-#import "MKGeometry.h"
+#import <MapKit/MKShape.h>
+#import <MapKit/MKOverlay.h>
+#import <MapKit/MKGeometry.h>
 
 @interface MKCircle : MKShape <MKOverlay> {
     @package

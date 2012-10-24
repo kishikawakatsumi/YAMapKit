@@ -42,10 +42,10 @@
 		14C023351636125D005CC1CC /* MKTouchesMovedGestureRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C023231636125D005CC1CC /* MKTouchesMovedGestureRecognizer.h */; settings = {ATTRIBUTES = (); }; };
 		14C023361636125D005CC1CC /* MKTouchesMovedGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C023241636125D005CC1CC /* MKTouchesMovedGestureRecognizer.m */; };
 		14C023371636125D005CC1CC /* MapKit.html.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C023251636125D005CC1CC /* MapKit.html.h */; };
-		14C0233C163612C4005CC1CC /* WebScriptEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C02338163612C3005CC1CC /* WebScriptEngine.h */; };
-		14C0233D163612C4005CC1CC /* WebScriptEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C02339163612C3005CC1CC /* WebScriptEngine.m */; };
-		14C0233E163612C4005CC1CC /* WebScriptObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C0233A163612C3005CC1CC /* WebScriptObject.h */; };
-		14C0233F163612C4005CC1CC /* WebScriptObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C0233B163612C3005CC1CC /* WebScriptObject.m */; };
+		14C0233C163612C4005CC1CC /* MKWebScriptEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C02338163612C3005CC1CC /* MKWebScriptEngine.h */; settings = {ATTRIBUTES = (); }; };
+		14C0233D163612C4005CC1CC /* MKWebScriptEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C02339163612C3005CC1CC /* MKWebScriptEngine.m */; };
+		14C0233E163612C4005CC1CC /* MKWebScriptObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C0233A163612C3005CC1CC /* MKWebScriptObject.h */; settings = {ATTRIBUTES = (); }; };
+		14C0233F163612C4005CC1CC /* MKWebScriptObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C0233B163612C3005CC1CC /* MKWebScriptObject.m */; };
 		14C02346163612D1005CC1CC /* MKPlacemark.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C02340163612D0005CC1CC /* MKPlacemark.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		14C02347163612D1005CC1CC /* MKPlacemark.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C02341163612D0005CC1CC /* MKPlacemark.m */; };
 		14C02348163612D1005CC1CC /* MKReverseGeocoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C02342163612D0005CC1CC /* MKReverseGeocoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -86,8 +86,7 @@
 		14C023941636143F005CC1CC /* MKDirectionsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C023901636143F005CC1CC /* MKDirectionsRequest.m */; };
 		14C023951636143F005CC1CC /* MKMapItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C023911636143F005CC1CC /* MKMapItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		14C023961636143F005CC1CC /* MKMapItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C023921636143F005CC1CC /* MKMapItem.m */; };
-		14C0239A1636145C005CC1CC /* UIColor+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C023981636145B005CC1CC /* UIColor+Additions.h */; };
-		14C0239B1636145C005CC1CC /* UIColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C023991636145B005CC1CC /* UIColor+Additions.m */; };
+		14F400381637B2E30074DB1F /* MKGeometry.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F400371637B2E30074DB1F /* MKGeometry.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,10 +123,10 @@
 		14C023231636125D005CC1CC /* MKTouchesMovedGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKTouchesMovedGestureRecognizer.h; sourceTree = "<group>"; };
 		14C023241636125D005CC1CC /* MKTouchesMovedGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKTouchesMovedGestureRecognizer.m; sourceTree = "<group>"; };
 		14C023251636125D005CC1CC /* MapKit.html.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapKit.html.h; sourceTree = "<group>"; };
-		14C02338163612C3005CC1CC /* WebScriptEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebScriptEngine.h; sourceTree = "<group>"; };
-		14C02339163612C3005CC1CC /* WebScriptEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebScriptEngine.m; sourceTree = "<group>"; };
-		14C0233A163612C3005CC1CC /* WebScriptObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebScriptObject.h; sourceTree = "<group>"; };
-		14C0233B163612C3005CC1CC /* WebScriptObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebScriptObject.m; sourceTree = "<group>"; };
+		14C02338163612C3005CC1CC /* MKWebScriptEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKWebScriptEngine.h; sourceTree = "<group>"; };
+		14C02339163612C3005CC1CC /* MKWebScriptEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKWebScriptEngine.m; sourceTree = "<group>"; };
+		14C0233A163612C3005CC1CC /* MKWebScriptObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKWebScriptObject.h; sourceTree = "<group>"; };
+		14C0233B163612C3005CC1CC /* MKWebScriptObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKWebScriptObject.m; sourceTree = "<group>"; };
 		14C02340163612D0005CC1CC /* MKPlacemark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKPlacemark.h; sourceTree = "<group>"; };
 		14C02341163612D0005CC1CC /* MKPlacemark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKPlacemark.m; sourceTree = "<group>"; };
 		14C02342163612D0005CC1CC /* MKReverseGeocoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKReverseGeocoder.h; sourceTree = "<group>"; };
@@ -168,8 +167,6 @@
 		14C023901636143F005CC1CC /* MKDirectionsRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKDirectionsRequest.m; sourceTree = "<group>"; };
 		14C023911636143F005CC1CC /* MKMapItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKMapItem.h; sourceTree = "<group>"; };
 		14C023921636143F005CC1CC /* MKMapItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKMapItem.m; sourceTree = "<group>"; };
-		14C023981636145B005CC1CC /* UIColor+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Additions.h"; sourceTree = "<group>"; };
-		14C023991636145B005CC1CC /* UIColor+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Additions.m"; sourceTree = "<group>"; };
 		14C0239D1636147B005CC1CC /* MKPinAnnotationColorRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MKPinAnnotationColorRed.png; sourceTree = "<group>"; };
 		14C0239E1636147B005CC1CC /* MKPinAnnotationColorRed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MKPinAnnotationColorRed@2x.png"; sourceTree = "<group>"; };
 		14C0239F1636147B005CC1CC /* MKPinAnnotationColorGreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MKPinAnnotationColorGreen.png; sourceTree = "<group>"; };
@@ -192,6 +189,7 @@
 		14C023B01636147D005CC1CC /* MapKit.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = MapKit.html; sourceTree = "<group>"; };
 		14C023B11636147D005CC1CC /* Stylesheet.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = Stylesheet.css; sourceTree = "<group>"; };
 		14C023B21636147E005CC1CC /* Animations.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = Animations.css; sourceTree = "<group>"; };
+		14F400371637B2E30074DB1F /* MKGeometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKGeometry.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -238,6 +236,7 @@
 				14C023141636125D005CC1CC /* MKFoundation.h */,
 				14C023151636125D005CC1CC /* MKTypes.h */,
 				14C023161636125D005CC1CC /* MKGeometry.h */,
+				14F400371637B2E30074DB1F /* MKGeometry.m */,
 				14C023171636125D005CC1CC /* MKMapView.h */,
 				14C023181636125D005CC1CC /* MKMapView.m */,
 				14C023191636125D005CC1CC /* MKWebView.h */,
@@ -257,7 +256,6 @@
 				14C0234D163612F0005CC1CC /* Geocoding */,
 				14C0235A1636139E005CC1CC /* Annotations And Overlays */,
 				14C023971636144B005CC1CC /* Directions */,
-				14C0239C16361465005CC1CC /* Categories */,
 				14C023B31636148C005CC1CC /* Resources */,
 				14BEAF941636115300DD54D5 /* Supporting Files */,
 			);
@@ -275,10 +273,10 @@
 		14C0234C163612E0005CC1CC /* Scripting */ = {
 			isa = PBXGroup;
 			children = (
-				14C02338163612C3005CC1CC /* WebScriptEngine.h */,
-				14C02339163612C3005CC1CC /* WebScriptEngine.m */,
-				14C0233A163612C3005CC1CC /* WebScriptObject.h */,
-				14C0233B163612C3005CC1CC /* WebScriptObject.m */,
+				14C02338163612C3005CC1CC /* MKWebScriptEngine.h */,
+				14C02339163612C3005CC1CC /* MKWebScriptEngine.m */,
+				14C0233A163612C3005CC1CC /* MKWebScriptObject.h */,
+				14C0233B163612C3005CC1CC /* MKWebScriptObject.m */,
 			);
 			name = Scripting;
 			sourceTree = "<group>";
@@ -376,15 +374,6 @@
 			name = Directions;
 			sourceTree = "<group>";
 		};
-		14C0239C16361465005CC1CC /* Categories */ = {
-			isa = PBXGroup;
-			children = (
-				14C023981636145B005CC1CC /* UIColor+Additions.h */,
-				14C023991636145B005CC1CC /* UIColor+Additions.m */,
-			);
-			name = Categories;
-			sourceTree = "<group>";
-		};
 		14C023B31636148C005CC1CC /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -434,8 +423,8 @@
 				14C023331636125D005CC1CC /* MKLocationManager.h in Headers */,
 				14C023351636125D005CC1CC /* MKTouchesMovedGestureRecognizer.h in Headers */,
 				14C023371636125D005CC1CC /* MapKit.html.h in Headers */,
-				14C0233C163612C4005CC1CC /* WebScriptEngine.h in Headers */,
-				14C0233E163612C4005CC1CC /* WebScriptObject.h in Headers */,
+				14C0233C163612C4005CC1CC /* MKWebScriptEngine.h in Headers */,
+				14C0233E163612C4005CC1CC /* MKWebScriptObject.h in Headers */,
 				14C02346163612D1005CC1CC /* MKPlacemark.h in Headers */,
 				14C02348163612D1005CC1CC /* MKReverseGeocoder.h in Headers */,
 				14C0234A163612D1005CC1CC /* MKGeocoder.h in Headers */,
@@ -457,7 +446,6 @@
 				14C0238C1636140C005CC1CC /* MKPolygonView.h in Headers */,
 				14C023931636143F005CC1CC /* MKDirectionsRequest.h in Headers */,
 				14C023951636143F005CC1CC /* MKMapItem.h in Headers */,
-				14C0239A1636145C005CC1CC /* UIColor+Additions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -551,8 +539,8 @@
 				14C023321636125D005CC1CC /* MKUserTrackingButton.m in Sources */,
 				14C023341636125D005CC1CC /* MKLocationManager.m in Sources */,
 				14C023361636125D005CC1CC /* MKTouchesMovedGestureRecognizer.m in Sources */,
-				14C0233D163612C4005CC1CC /* WebScriptEngine.m in Sources */,
-				14C0233F163612C4005CC1CC /* WebScriptObject.m in Sources */,
+				14C0233D163612C4005CC1CC /* MKWebScriptEngine.m in Sources */,
+				14C0233F163612C4005CC1CC /* MKWebScriptObject.m in Sources */,
 				14C02347163612D1005CC1CC /* MKPlacemark.m in Sources */,
 				14C02349163612D1005CC1CC /* MKReverseGeocoder.m in Sources */,
 				14C0234B163612D1005CC1CC /* MKGeocoder.m in Sources */,
@@ -572,7 +560,7 @@
 				14C0238D1636140C005CC1CC /* MKPolygonView.m in Sources */,
 				14C023941636143F005CC1CC /* MKDirectionsRequest.m in Sources */,
 				14C023961636143F005CC1CC /* MKMapItem.m in Sources */,
-				14C0239B1636145C005CC1CC /* UIColor+Additions.m in Sources */,
+				14F400381637B2E30074DB1F /* MKGeometry.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

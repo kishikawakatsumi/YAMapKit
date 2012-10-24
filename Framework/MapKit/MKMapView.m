@@ -6,17 +6,18 @@
 //  Copyright (c) 2012 kishikawa katsumi. All rights reserved.
 //
 
-#import "MKMapView.h"
-#import "MKUserLocation.h"
-#import "MKCircleView.h"
-#import "MKCircle.h"
-#import "MKPolyline.h"
-#import "MKPolygon.h"
-#import "MKAnnotationView.h"
-#import "MKPointAnnotation.h"
-#import "MKWebView.h"
-#import "WebScriptEngine.h"
-#import "WebScriptObject.h"
+#import <MapKit/MKMapView.h>
+#import <MapKit/MKUserLocation.h>
+#import <MapKit/MKCircleView.h>
+#import <MapKit/MKCircleView.h>
+#import <MapKit/MKCircle.h>
+#import <MapKit/MKPolyline.h>
+#import <MapKit/MKPolygon.h>
+#import <MapKit/MKAnnotationView.h>
+#import <MapKit/MKPointAnnotation.h>
+#import <MapKit/MKWebView.h>
+#import <MapKit/MKWebScriptEngine.h>
+#import <MapKit/MKWebScriptObject.h>
 
 typedef void (^DelayedAction)();
 
@@ -33,6 +34,8 @@ static MKWebView *webView;
     BOOL webViewLoaded;
     NSMutableArray *actions;
 }
+
+@property (nonatomic, readwrite) MKUserLocation *userLocation;
 
 @end
 
@@ -54,15 +57,15 @@ static MKWebView *webView;
     webView.delegate = self;
     
     // Create the overlay data structures
-    overlays = [[NSMutableArray alloc] init];
-    overlayViews = [[NSMutableDictionary alloc] init];
-    overlayScriptObjects = [[NSMutableDictionary alloc] init];
+    _overlays = [[NSMutableArray alloc] init];
+    _overlayViews = [[NSMutableDictionary alloc] init];
+    _overlayScriptObjects = [[NSMutableDictionary alloc] init];
     
     // Create the annotation data structures
-    annotations = [[NSMutableArray alloc] init];
-    selectedAnnotations = [[NSMutableArray alloc] init];
-    annotationViews = [[NSMutableDictionary alloc] init];
-    annotationScriptObjects = [[NSMutableDictionary alloc] init];
+    _annotations = [[NSMutableArray alloc] init];
+    _selectedAnnotations = [[NSMutableArray alloc] init];
+    _annotationViews = [[NSMutableDictionary alloc] init];
+    _annotationScriptObjects = [[NSMutableDictionary alloc] init];
     
     [self loadMapKitHtml];
     
@@ -74,7 +77,8 @@ static MKWebView *webView;
 {
     webView.scrollView.scrollEnabled = NO;
 #include "MapKit.html.h"
-    [webView loadHTMLString:[NSString stringWithCString:MapKit_html length:MapKit_html_len] baseURL:[NSURL fileURLWithPath:@"MapKit.html"]];
+    NSString *html = [[NSString alloc] initWithBytes:MapKit_html length:MapKit_html_len encoding:NSUTF8StringEncoding];
+    [webView loadHTMLString:html baseURL:[NSURL fileURLWithPath:@"MapKit.html"]];
     [self addSubview:webView];
 }
 
@@ -330,7 +334,7 @@ static MKWebView *webView;
     DelayedAction action = ^
     {
         NSArray *args = [NSArray arrayWithObjects:@(visible), nil];
-        WebScriptObject *webScriptObject = [webView windowScriptObject];
+        MKWebScriptObject *webScriptObject = [webView windowScriptObject];
         [webScriptObject.scriptEngine callWebScriptMethod:@"setUserLocationVisible" withArguments:args];
     };
     
@@ -341,7 +345,7 @@ static MKWebView *webView;
 {
     DelayedAction action = ^
     {
-        WebScriptObject *webScriptObject = [webView windowScriptObject];
+        MKWebScriptObject *webScriptObject = [webView windowScriptObject];
         
         CLLocationAccuracy accuracy = MAX(location.horizontalAccuracy, location.verticalAccuracy);
         NSArray *args = @[[NSNumber numberWithDouble: accuracy]];
@@ -355,11 +359,10 @@ static MKWebView *webView;
 
 - (void)updateOverlayZIndexes
 {
-    //NSLog(@"updating overlay z indexes of :%@", overlays);
     NSUInteger zIndex = 4000; // some arbitrary starting value
-    WebScriptObject *webScriptObject = [webView windowScriptObject];
+    MKWebScriptObject *webScriptObject = [webView windowScriptObject];
     for (id <MKOverlay> overlay in self.overlays) {
-        WebScriptObject *overlayScriptObject = [overlayScriptObjects objectForKey:@([overlay hash])];
+        MKWebScriptObject *overlayScriptObject = [_overlayScriptObjects objectForKey:@([overlay hash])];
         if (overlayScriptObject) {
             NSArray *args = [NSArray arrayWithObjects: overlayScriptObject, @"zIndex", [NSNumber numberWithInteger:zIndex], nil];
             [webScriptObject.scriptEngine callWebScriptMethod:@"setOverlayOption" withArguments:args];
@@ -370,7 +373,7 @@ static MKWebView *webView;
 
 - (void)updateAnnotationZIndexes {
     NSUInteger zIndex = 6000; // some arbitrary starting value
-    WebScriptObject *webScriptObject = [webView windowScriptObject];
+    MKWebScriptObject *webScriptObject = [webView windowScriptObject];
     
     NSArray *sortedAnnotations = [self.annotations sortedArrayUsingComparator: ^(id <MKAnnotation> ann1, id <MKAnnotation> ann2) {
         if (ann1.coordinate.latitude < ann2.coordinate.latitude) {
@@ -384,7 +387,7 @@ static MKWebView *webView;
     }];
     
     for (id <MKAnnotation> annotation in sortedAnnotations) {
-        WebScriptObject *overlayScriptObject = (WebScriptObject *)[annotationScriptObjects objectForKey: annotation];
+        MKWebScriptObject *overlayScriptObject = [_annotationScriptObjects objectForKey:@([annotation hash])];
         if (overlayScriptObject) {
             NSArray *args = [NSArray arrayWithObjects: overlayScriptObject, @"zIndex", [NSNumber numberWithInteger:zIndex], nil];
             [webScriptObject.scriptEngine callWebScriptMethod:@"setOverlayOption" withArguments:args];
@@ -393,28 +396,27 @@ static MKWebView *webView;
     }
 }
 
-- (void)annotationScriptObjectSelected:(WebScriptObject *)annotationScriptObject
+- (void)annotationScriptObjectSelected:(MKWebScriptObject *)annotationScriptObject
 {
     // Deselect everything that was selected
     [self setSelectedAnnotations:[NSArray array]];
     
     for (id <MKAnnotation> annotation in self.annotations) {
-        WebScriptObject *scriptObject = (WebScriptObject *)[annotationScriptObjects objectForKey: annotation];
+        MKWebScriptObject *scriptObject = [_annotationScriptObjects objectForKey:@([annotation hash])];
         if ([scriptObject isEqual:annotationScriptObject]) {
             [self selectAnnotation:annotation animated:NO];
         }
     }
 }
 
-- (void)annotationScriptObjectDragStart:(WebScriptObject *)annotationScriptObject
+- (void)annotationScriptObjectDragStart:(MKWebScriptObject *)annotationScriptObject
 {
-    //NSLog(@"annotationScriptObjectDragStart:");
     for (id <MKAnnotation> annotation in self.annotations) {
-        WebScriptObject *scriptObject = [annotationScriptObjects objectForKey: annotation];
+        MKWebScriptObject *scriptObject = [_annotationScriptObjects objectForKey:@([annotation hash])];
         if ([scriptObject isEqual:annotationScriptObject]) {
             // it has to be an annotation that actually supports moving.
             if ([annotation respondsToSelector:@selector(setCoordinate:)]) {
-                MKAnnotationView *view = [annotationViews objectForKey: annotation];
+                MKAnnotationView *view = [_annotationViews objectForKey: annotation];
                 view.dragState = MKAnnotationViewDragStateStarting;
                 [self delegateAnnotationView:view didChangeDragState:MKAnnotationViewDragStateStarting fromOldState:MKAnnotationViewDragStateNone];
             }
@@ -422,17 +424,16 @@ static MKWebView *webView;
     }
 }
 
-- (void)annotationScriptObjectDrag:(WebScriptObject *)annotationScriptObject
+- (void)annotationScriptObjectDrag:(MKWebScriptObject *)annotationScriptObject
 {
-    //NSLog(@"annotationScriptObjectDrag:");
     for (id <MKAnnotation> annotation in self.annotations) {
-        WebScriptObject *scriptObject = [annotationScriptObjects objectForKey: annotation];
+        MKWebScriptObject *scriptObject = [_annotationScriptObjects objectForKey:@([annotation hash])];
         if ([scriptObject isEqual:annotationScriptObject]) {
             // it has to be an annotation that actually supports moving.
             if ([annotation respondsToSelector:@selector(setCoordinate:)]) {
                 CLLocationCoordinate2D newCoordinate = [self coordinateForAnnotationScriptObject:annotationScriptObject];
                 [(id <MKDraggableAnnotation> )annotation setCoordinate:newCoordinate];
-                MKAnnotationView *view = [annotationViews objectForKey: annotation];
+                MKAnnotationView *view = [_annotationViews objectForKey: annotation];
                 if (view.dragState != MKAnnotationViewDragStateDragging) {
                     view.dragState = MKAnnotationViewDragStateNone;
                     [self delegateAnnotationView:view didChangeDragState:MKAnnotationViewDragStateDragging fromOldState:MKAnnotationViewDragStateStarting];
@@ -442,17 +443,16 @@ static MKWebView *webView;
     }
 }
 
-- (void)annotationScriptObjectDragEnd:(WebScriptObject *)annotationScriptObject
+- (void)annotationScriptObjectDragEnd:(MKWebScriptObject *)annotationScriptObject
 {
-    //NSLog(@"annotationScriptObjectDragEnd");
     for (id <MKAnnotation> annotation in self.annotations) {
-        WebScriptObject *scriptObject = [annotationScriptObjects objectForKey: annotation];
+        MKWebScriptObject *scriptObject = [_annotationScriptObjects objectForKey:@([annotation hash])];
         if ([scriptObject isEqual:annotationScriptObject]) {
             // it has to be an annotation that actually supports moving.
             if ([annotation respondsToSelector:@selector(setCoordinate:)]) {
                 CLLocationCoordinate2D newCoordinate = [self coordinateForAnnotationScriptObject:annotationScriptObject];
                 [(id <MKDraggableAnnotation>)annotation setCoordinate:newCoordinate];
-                MKAnnotationView *view = [annotationViews objectForKey: annotation];
+                MKAnnotationView *view = [_annotationViews objectForKey: annotation];
                 view.dragState = MKAnnotationViewDragStateNone;
                 [self delegateAnnotationView:view didChangeDragState:MKAnnotationViewDragStateNone fromOldState:MKAnnotationViewDragStateDragging];
             }
@@ -502,10 +502,8 @@ static MKWebView *webView;
     [self loadMapKitHtml];
 }
 
-- (void)annotationScriptObjectRightClick:(WebScriptObject *)annotationScriptObject
+- (void)annotationScriptObjectRightClick:(MKWebScriptObject *)annotationScriptObject
 {
-//    //NSLog(@"annotationScriptObjectRightClick");
-//
 //    // Find the actual MKAnnotationView
 //    MKAnnotationView *annotationView = nil;
 //    for (id <MKAnnotation> annotation in self.annotations) {
@@ -548,12 +546,12 @@ static MKWebView *webView;
 //    }
 }
 
-- (CLLocationCoordinate2D)coordinateForAnnotationScriptObject:(WebScriptObject *)annotationScriptObject
+- (CLLocationCoordinate2D)coordinateForAnnotationScriptObject:(MKWebScriptObject *)annotationScriptObject
 {
     CLLocationCoordinate2D coord;
     coord.latitude = 0.0;
     coord.longitude = 0.0;
-    WebScriptObject *windowScriptObject = [webView windowScriptObject];
+    MKWebScriptObject *windowScriptObject = [webView windowScriptObject];
     
     NSString *json = [windowScriptObject.scriptEngine callWebScriptMethod:@"coordinateForAnnotation" withArguments:[NSArray arrayWithObject:annotationScriptObject]];
     NSDictionary *latlong = [NSJSONSerialization JSONObjectWithData:[json dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
@@ -574,7 +572,7 @@ static MKWebView *webView;
 
 - (void)addJavascriptTag:(NSString *)urlString
 {
-    WebScriptObject *webScriptObject = [webView windowScriptObject];
+    MKWebScriptObject *webScriptObject = [webView windowScriptObject];
     NSURL *url = [NSURL URLWithString:urlString];
     NSArray *args = [NSArray arrayWithObject:[url filePathURL]];
     [webScriptObject.scriptEngine callWebScriptMethod:@"addJavascriptTag" withArguments:args];
@@ -582,14 +580,14 @@ static MKWebView *webView;
 
 - (void)addStylesheetTag:(NSString *)urlString
 {
-    WebScriptObject *webScriptObject = [webView windowScriptObject];
+    MKWebScriptObject *webScriptObject = [webView windowScriptObject];
     NSArray *args = [NSArray arrayWithObject:urlString];
     [webScriptObject.scriptEngine callWebScriptMethod:@"addStylesheetTag" withArguments:args];
 }
 
 - (void)showAddress:(NSString *)address
 {
-    WebScriptObject *webScriptObject = [webView windowScriptObject];
+    MKWebScriptObject *webScriptObject = [webView windowScriptObject];
     NSArray *args = [NSArray arrayWithObject:address];
     [webScriptObject.scriptEngine callWebScriptMethod:@"showAddress" withArguments:args];
 }
@@ -660,7 +658,7 @@ static MKWebView *webView;
     DelayedAction action = ^
     {
         _mapType = type;
-        WebScriptObject *webScriptObject = [webView windowScriptObject];
+        MKWebScriptObject *webScriptObject = [webView windowScriptObject];
         NSArray *args = [NSArray arrayWithObject:[NSNumber numberWithInt:_mapType]];
         [webScriptObject.scriptEngine callWebScriptMethod:@"setMapType" withArguments:args];
     };
@@ -670,7 +668,7 @@ static MKWebView *webView;
 
 - (CLLocationCoordinate2D)centerCoordinate
 {
-    WebScriptObject *webScriptObject = [webView windowScriptObject];
+    MKWebScriptObject *webScriptObject = [webView windowScriptObject];
     NSNumber *latitude = nil;
     NSNumber *longitude = nil;
     NSString *json = [webScriptObject.scriptEngine evaluateWebScript:@"getCenterCoordinate()"];
@@ -701,7 +699,7 @@ static MKWebView *webView;
                          [NSNumber numberWithDouble:coordinate.longitude],
                          [NSNumber numberWithBool:animated],
                          nil];
-        WebScriptObject *webScriptObject = [webView windowScriptObject];
+        MKWebScriptObject *webScriptObject = [webView windowScriptObject];
         [webScriptObject.scriptEngine callWebScriptMethod:@"setCenterCoordinateAnimated" withArguments:args];
         [self didChangeValueForKey:@"region"];
         hasSetCenterCoordinate = YES;
@@ -712,7 +710,7 @@ static MKWebView *webView;
 
 - (MKCoordinateRegion)region
 {
-    WebScriptObject *webScriptObject = [webView windowScriptObject];
+    MKWebScriptObject *webScriptObject = [webView windowScriptObject];
     NSString *json = [webScriptObject.scriptEngine evaluateWebScript:@"getRegion()"];
     NSDictionary *regionDict = [NSJSONSerialization JSONObjectWithData:[json dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
      
@@ -740,7 +738,7 @@ static MKWebView *webView;
     {
         [self delegateRegionWillChangeAnimated:animated];
         [self willChangeValueForKey:@"centerCoordinate"];
-        WebScriptObject *webScriptObject = [webView windowScriptObject];
+        MKWebScriptObject *webScriptObject = [webView windowScriptObject];
         NSArray *args = @[@(region.center.latitude), @(region.center.longitude), @(region.span.latitudeDelta), @(region.span.longitudeDelta), @(animated)];
         [webScriptObject.scriptEngine callWebScriptMethod:@"setRegionAnimated" withArguments:args];
         [self didChangeValueForKey:@"centerCoordinate"];
@@ -790,7 +788,7 @@ static MKWebView *webView;
     if (!self.showsUserLocation || !_userLocation.location) {
         return NO;
     }
-    WebScriptObject *webScriptObject = [webView windowScriptObject];
+    MKWebScriptObject *webScriptObject = [webView windowScriptObject];
     NSString *visible = [webScriptObject.scriptEngine callWebScriptMethod:@"isUserLocationVisible" withArguments:[NSArray array]];
     return visible.boolValue;
 }
@@ -799,7 +797,7 @@ static MKWebView *webView;
 
 - (NSArray *)overlays
 {
-    return [self.overlays copy];
+    return [_overlays copy];
 }
 
 - (void)addOverlay:(id < MKOverlay >)overlay
@@ -824,8 +822,8 @@ static MKWebView *webView;
     
     id <MKOverlay> overlay1 = [overlays objectAtIndex: index1];
     id <MKOverlay> overlay2 = [overlays objectAtIndex: index2];
-    [overlays replaceObjectAtIndex:index2 withObject:overlay1];
-    [overlays replaceObjectAtIndex:index1 withObject:overlay2];
+    [_overlays replaceObjectAtIndex:index2 withObject:overlay1];
+    [_overlays replaceObjectAtIndex:index1 withObject:overlay2];
     [self updateOverlayZIndexes];
 }
 
@@ -851,7 +849,7 @@ static MKWebView *webView;
         index = [self.overlays count];
     }
     
-    WebScriptObject *webScriptObject = [webView windowScriptObject];
+    MKWebScriptObject *webScriptObject = [webView windowScriptObject];
     
     MKOverlayView *overlayView = nil;
     if ([self.delegate respondsToSelector:@selector(mapView:viewForOverlay:)]) {
@@ -863,15 +861,15 @@ static MKWebView *webView;
         return;
     }
     
-    WebScriptObject *overlayScriptObject = [overlayView overlayScriptObjectFromMapScriptObject:webScriptObject];
+    MKWebScriptObject *overlayScriptObject = [overlayView overlayScriptObjectFromMapScriptObject:webScriptObject];
     if (!overlayScriptObject) {
         NSLog(@"Error creating internal representation of overlay view for overlay: %@", overlay);
         return;
     }
     
-    [overlays insertObject:overlay atIndex:index];
-    [overlayViews setObject:overlayView forKey:@([overlay hash])];
-    [overlayScriptObjects setObject:overlayScriptObject forKey:@([overlay hash])];
+    [_overlays insertObject:overlay atIndex:index];
+    [_overlayViews setObject:overlayView forKey:@([overlay hash])];
+    [_overlayScriptObjects setObject:overlayScriptObject forKey:@([overlay hash])];
     
     NSArray *args = [NSArray arrayWithObject:overlayScriptObject];
     [webScriptObject.scriptEngine callWebScriptMethod:@"addOverlay" withArguments:args];
@@ -900,15 +898,15 @@ static MKWebView *webView;
         return;
     }
     
-    WebScriptObject *webScriptObject = [webView windowScriptObject];
-    WebScriptObject *overlayScriptObject = [overlayScriptObjects objectForKey:@([overlay hash])];
+    MKWebScriptObject *webScriptObject = [webView windowScriptObject];
+    MKWebScriptObject *overlayScriptObject = [_overlayScriptObjects objectForKey:@([overlay hash])];
     NSArray *args = [NSArray arrayWithObject:overlayScriptObject];
     [webScriptObject.scriptEngine callWebScriptMethod:@"removeOverlay" withArguments:args];
     
-    [overlayViews removeObjectForKey:@([overlay hash])];
-    [overlayScriptObjects removeObjectForKey:@([overlay hash])];
+    [_overlayViews removeObjectForKey:@([overlay hash])];
+    [_overlayScriptObjects removeObjectForKey:@([overlay hash])];
     
-    [self.overlays removeObject:overlay];
+    [_overlays removeObject:overlay];
     [self updateOverlayZIndexes];
 }
 
@@ -924,7 +922,7 @@ static MKWebView *webView;
     if (![self.overlays containsObject:overlay]) {
         return nil;
     }
-    return [overlayViews objectForKey:@([overlay hash])];
+    return [_overlayViews objectForKey:@([overlay hash])];
 }
 
 #pragma mark Annotations
@@ -943,7 +941,7 @@ static MKWebView *webView;
             return;
         }
         
-        WebScriptObject *webScriptObject = [webView windowScriptObject];
+        MKWebScriptObject *webScriptObject = [webView windowScriptObject];
         
         MKAnnotationView *annotationView = nil;
         if ([self.delegate respondsToSelector:@selector(mapView:viewForAnnotation:)]) {
@@ -955,15 +953,15 @@ static MKWebView *webView;
             return;
         }
         
-        WebScriptObject *annotationScriptObject = [annotationView overlayScriptObjectFromMapScriptObject:webScriptObject];
-        if (![annotationScriptObject isKindOfClass:[WebScriptObject class]]) {
+        MKWebScriptObject *annotationScriptObject = [annotationView overlayScriptObjectFromMapScriptObject:webScriptObject];
+        if (![annotationScriptObject isKindOfClass:[MKWebScriptObject class]]) {
             NSLog(@"Error creating internal representation of annotation view for annotation: %@", annotation);
             return;
         }
         
-        [self.annotations addObject:annotation];
-        [annotationViews setObject:annotationView forKey:@([annotation hash])];
-        [annotationScriptObjects setObject:annotationScriptObject forKey:@([annotation hash])];
+        [_annotations addObject:annotation];
+        [_annotationViews setObject:annotationView forKey:@([annotation hash])];
+        [_annotationScriptObjects setObject:annotationScriptObject forKey:@([annotation hash])];
         
         NSArray *args = [NSArray arrayWithObject:annotationScriptObject];
         [webScriptObject.scriptEngine callWebScriptMethod:@"addAnnotation" withArguments:args];
@@ -992,15 +990,15 @@ static MKWebView *webView;
         return;
     }
     
-    WebScriptObject *webScriptObject = [webView windowScriptObject];
-    WebScriptObject *annotationScriptObject = (WebScriptObject *)[annotationScriptObjects objectForKey: annotation];
+    MKWebScriptObject *webScriptObject = [webView windowScriptObject];
+    MKWebScriptObject *annotationScriptObject = [_annotationScriptObjects objectForKey: annotation];
     NSArray *args = [NSArray arrayWithObject:annotationScriptObject];
     [webScriptObject.scriptEngine callWebScriptMethod:@"removeAnnotation" withArguments:args];
     
-    [annotationViews removeObjectForKey: annotation];
-    [annotationScriptObjects removeObjectForKey: annotation];
+    [_annotationViews removeObjectForKey: annotation];
+    [_annotationScriptObjects removeObjectForKey: annotation];
     
-    [self.annotations removeObject:annotation];
+    [_annotations removeObject:annotation];
 }
 
 - (void)removeAnnotations:(NSArray *)someAnnotations
@@ -1012,10 +1010,10 @@ static MKWebView *webView;
 
 - (MKAnnotationView *)viewForAnnotation:(id < MKAnnotation >)annotation
 {
-    if (![self.annotations containsObject:annotation]) {
+    if (![_annotations containsObject:annotation]) {
         return nil;
     }
-    return (MKAnnotationView *)[annotationViews objectForKey: annotation];
+    return [_annotationViews objectForKey: annotation];
 }
 
 - (MKAnnotationView *)dequeueReusableAnnotationViewWithIdentifier:(NSString *)identifier
@@ -1029,21 +1027,23 @@ static MKWebView *webView;
     __block BOOL retry = NO;
     DelayedAction action = ^
     {
-        if ([selectedAnnotations containsObject:annotation]) {
-            return;
+//        if ([_selectedAnnotations containsObject:annotation]) {
+//            return;
+//        }
+        
+        MKAnnotationView *annotationView = [_annotationViews objectForKey:annotation];
+        retry = !annotationView;
+        
+        MKWebScriptObject *webScriptObject = [webView windowScriptObject];
+        MKWebScriptObject *annotationScriptObject = [_annotationScriptObjects objectForKey:@([annotation hash])];
+        retry = !annotationScriptObject;
+        
+        if (!retry) {
+            [_selectedAnnotations addObject:annotation];
+            [self delegateDidSelectAnnotationView:annotationView];
         }
         
-        MKAnnotationView *annotationView = [annotationViews objectForKey:annotation];
-        if (!annotationView) {
-            retry = YES;
-        }
-        [self.selectedAnnotations addObject:annotation];
-        [self delegateDidSelectAnnotationView:annotationView];
-        
-        WebScriptObject *webScriptObject = [webView windowScriptObject];
-        WebScriptObject *annotationScriptObject = (WebScriptObject *)[annotationScriptObjects objectForKey: annotation];
-        
-        if (annotation.title)
+        if ([annotation respondsToSelector:@selector(title)] && annotation.title)
         {
             NSArray *args = [NSArray arrayWithObjects:annotationScriptObject, annotation.title, nil];
             [webScriptObject.scriptEngine callWebScriptMethod:@"setAnnotationCalloutText" withArguments:args];
@@ -1071,12 +1071,12 @@ static MKWebView *webView;
         return;
     }
     
-    MKAnnotationView *annotationView = [annotationViews objectForKey:annotation];
-    [self.selectedAnnotations removeObject:annotation];
+    MKAnnotationView *annotationView = [_annotationViews objectForKey:annotation];
+    [_selectedAnnotations removeObject:annotation];
     [self delegateDidDeselectAnnotationView:annotationView];
     
-    WebScriptObject *webScriptObject = [webView windowScriptObject];
-    WebScriptObject *annotationScriptObject = (WebScriptObject *)[annotationScriptObjects objectForKey: annotation];
+    MKWebScriptObject *webScriptObject = [webView windowScriptObject];
+    MKWebScriptObject *annotationScriptObject = [_annotationScriptObjects objectForKey: annotation];
     
     NSArray *args = [NSArray arrayWithObjects:annotationScriptObject, [NSNumber numberWithBool:YES], nil];
     [webScriptObject.scriptEngine callWebScriptMethod:@"setAnnotationCalloutHidden" withArguments:args];
@@ -1084,7 +1084,7 @@ static MKWebView *webView;
 
 - (NSMutableArray *)selectedAnnotations
 {
-    return [selectedAnnotations mutableCopy];
+    return [_selectedAnnotations mutableCopy];
 }
 
 - (void)setSelectedAnnotations:(NSArray *)someAnnotations
@@ -1112,7 +1112,7 @@ static MKWebView *webView;
                      [NSNumber numberWithDouble:coordinate.latitude],
                      [NSNumber numberWithDouble:coordinate.longitude],
                      nil];
-    WebScriptObject *webScriptObject = [webView windowScriptObject];
+    MKWebScriptObject *webScriptObject = [webView windowScriptObject];
     NSString *json = [webScriptObject.scriptEngine callWebScriptMethod:@"convertCoordinate" withArguments:args];
     NSNumber *x = nil;
     NSNumber *y = nil;
@@ -1210,6 +1210,7 @@ static MKWebView *webView;
 #define MKDirectionModeWalking         @"w"
 #define MKDirectionModePublicTransport @"r"
 
+void MKOpenDirectionInGoogleMaps(CLLocationCoordinate2D startingPoint, CLLocationCoordinate2D endPoint, NSString *directionMode);
 void MKOpenDirectionInGoogleMaps(CLLocationCoordinate2D startingPoint, CLLocationCoordinate2D endPoint, NSString *directionMode) {
 	NSString *googleMapsURL = [NSString stringWithFormat:@"http://maps.google.com/maps?saddr=%f,%f&daddr=%f,%f",
 							   startingPoint.latitude,startingPoint.longitude, endPoint.latitude, endPoint.longitude];
@@ -1222,6 +1223,7 @@ void MKOpenDirectionInGoogleMaps(CLLocationCoordinate2D startingPoint, CLLocatio
 }
 
 // Thanks to Stefan Bachl for providing the algorithm
+void MKRotateViewForDirectionFromCoordinateToCoordinate(UIView *view, CLHeading *heading, CLLocationCoordinate2D fromLocation, CLLocationCoordinate2D toLocation, BOOL animated);
 void MKRotateViewForDirectionFromCoordinateToCoordinate(UIView *view, CLHeading *heading, CLLocationCoordinate2D fromLocation, CLLocationCoordinate2D toLocation, BOOL animated) {
     if (heading.headingAccuracy > 0) {
         float fromLatitude = fromLocation.latitude / 180.f * M_PI;
@@ -1342,7 +1344,7 @@ static char headingAngleViewKey;
 - (void)rotateToHeading:(CLHeading *)heading animated:(BOOL)animated
 {
 	if (heading.headingAccuracy > 0) {
-        WebScriptObject *webScriptObject = [webView windowScriptObject];
+        MKWebScriptObject *webScriptObject = [webView windowScriptObject];
         NSArray *args = @[@(heading.magneticHeading)];
         [webScriptObject.scriptEngine callWebScriptMethod:@"rotateToHeadingAnimated" withArguments:args];
     }
@@ -1354,7 +1356,7 @@ static char headingAngleViewKey;
 
 - (void)resetHeadingRotationAnimated:(BOOL)animated
 {
-    WebScriptObject *webScriptObject = [webView windowScriptObject];
+    MKWebScriptObject *webScriptObject = [webView windowScriptObject];
     NSArray *args = @[@0];
     [webScriptObject.scriptEngine callWebScriptMethod:@"rotateToHeadingAnimated" withArguments:args];
 }

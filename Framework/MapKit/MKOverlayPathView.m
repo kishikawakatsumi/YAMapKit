@@ -6,8 +6,7 @@
 //  Copyright 2010 Centrix.ca. All rights reserved.
 //
 
-#import "MKOverlayPathView.h"
-#import "UIColor+Additions.h"
+#import <MKOverlayPathView.h>
 
 @implementation MKOverlayPathView
 
@@ -31,20 +30,45 @@
     [options setObject:[NSNumber numberWithBool:NO] forKey:@"clickable"];
 
     if (fillColor) {
-        [options setObject:[fillColor hexString] forKey:@"fillColor"];
-        CGFloat alpha;
-        [fillColor getWhite:nil alpha:&alpha];
-        [options setObject:[NSNumber numberWithFloat:alpha] forKey:@"fillOpacity"];
+        [options setObject:[self convertColorToHexStringWithColor:fillColor] forKey:@"fillColor"];
+        [options setObject:@(CGColorGetAlpha(fillColor.CGColor)) forKey:@"fillOpacity"];
     }
     if (strokeColor) {
-        [options setObject:[strokeColor hexString] forKey:@"strokeColor"];
-        CGFloat alpha;
-        [strokeColor getWhite:nil alpha:&alpha];
-        [options setObject:[NSNumber numberWithFloat:alpha] forKey:@"strokeOpacity"];
+        [options setObject:[self convertColorToHexStringWithColor:strokeColor] forKey:@"strokeColor"];
+        [options setObject:@(CGColorGetAlpha(strokeColor.CGColor)) forKey:@"strokeOpacity"];
 
     }
     
     return [options copy];
+}
+
+- (NSString *)convertColorToHexStringWithColor:(UIColor *)color
+{
+    CGFloat redFloatValue, greenFloatValue, blueFloatValue;
+    int redIntValue, greenIntValue, blueIntValue;
+    NSString *redHexValue, *greenHexValue, *blueHexValue;
+    
+    //Convert the UIColor to the RGB color space before we can access its components
+    UIColor *convertedColor = color;
+    
+    if (convertedColor) {
+        // Get the red, green, and blue components of the color
+        [convertedColor getRed:&redFloatValue green:&greenFloatValue blue:&blueFloatValue alpha:NULL];
+        
+        // Convert the components to numbers (unsigned decimal integer) between 0 and 255
+        redIntValue = redFloatValue * 255.99999f;
+        greenIntValue = greenFloatValue * 255.99999f;
+        blueIntValue = blueFloatValue * 255.99999f;
+        
+        // Convert the numbers to hex strings
+        redHexValue = [NSString stringWithFormat:@"%02x", redIntValue];
+        greenHexValue = [NSString stringWithFormat:@"%02x", greenIntValue];
+        blueHexValue = [NSString stringWithFormat:@"%02x", blueIntValue];
+        
+        // Concatenate the red, green, and blue components' hex strings together with a "#"
+        return [NSString stringWithFormat:@"#%@%@%@", redHexValue, greenHexValue, blueHexValue];
+    }
+    return nil;
 }
 
 @end

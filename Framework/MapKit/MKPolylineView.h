@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
-#import "MKPolyline.h"
-#import "MKOverlayPathView.h"
+#import <MapKit/MKPolyline.h>
+#import <MapKit/MKOverlayPathView.h>
 
 @interface MKPolylineView : MKOverlayPathView {
     NSArray *path;
