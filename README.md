@@ -22,6 +22,7 @@ YAMapKit implements nearly 100% of MK* functionality. It's been tested on iOS 5 
 **Unsupported Features**  
 * Geocoding. (Use 'CLGeocoder' instead.)
 * Custom overlay views. (Supported builtin classes only. e.g. MKPolylineView, MKCircleView and so on.)
+* Raplace annotation by 'Drag & Drop'.
 
 What's Provided
 ---------------
