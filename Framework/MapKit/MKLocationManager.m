@@ -94,7 +94,7 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:MKLocationManagerDidStopUpdatingServices object:blockSelf userInfo:nil];
         };
         
-        [self.mapView addGestureRecognizer:tapInterceptor];
+        [_mapView addGestureRecognizer:tapInterceptor];
     }
 }
 

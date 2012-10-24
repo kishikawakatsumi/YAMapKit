@@ -1093,6 +1093,18 @@
         mapView.style.webkitTransform = param;
     }
     
+    function zoomIn(increment)
+    {
+        increment = increment || 1;
+        map.setZoom(mapView.getZoom() + increment);
+    }
+    
+    function zoomOut(decrement)
+    {
+        decrement = decrement || 1;
+        map.setZoom(map.getZoom() - decrement);
+    }
+    
     // End New API
     
     function initialize() {

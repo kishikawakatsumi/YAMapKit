@@ -18,6 +18,7 @@
 #import <MapKit/MKWebView.h>
 #import <MapKit/MKWebScriptEngine.h>
 #import <MapKit/MKWebScriptObject.h>
+#import <MapKit/MKTapGestureRecognizer.h>
 
 typedef void (^DelayedAction)();
 
@@ -71,6 +72,12 @@ static MKWebView *webView;
     
     // Create a user location
     self.userLocation = [[MKUserLocation alloc] init];
+    
+    UITapGestureRecognizer *tapGestureRecognizer = [[MKTapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTwoFingerTap:)];
+    tapGestureRecognizer.numberOfTapsRequired = 1;
+    tapGestureRecognizer.numberOfTouchesRequired = 2;
+    
+    [self addGestureRecognizer:tapGestureRecognizer];
 }
 
 - (void)loadMapKitHtml
@@ -91,6 +98,11 @@ static MKWebView *webView;
     }
 }
 
+- (void)handleTwoFingerTap:(UITapGestureRecognizer *)gestureRecognizer
+{
+    [self zoomOut];
+}
+
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
     return [request.URL.absoluteString hasSuffix:@"MapKit.html"];
@@ -104,6 +116,18 @@ static MKWebView *webView;
     }
     
     [actions removeAllObjects];
+}
+
+- (void)zoomIn
+{
+    MKWebScriptObject *webScriptObject = [webView windowScriptObject];
+    [webScriptObject.scriptEngine callWebScriptMethod:@"zoomIn" withArguments:nil];
+}
+
+- (void)zoomOut
+{
+    MKWebScriptObject *webScriptObject = [webView windowScriptObject];
+    [webScriptObject.scriptEngine callWebScriptMethod:@"zoomOut" withArguments:nil];
 }
 
 @end
@@ -1027,9 +1051,9 @@ static MKWebView *webView;
     __block BOOL retry = NO;
     DelayedAction action = ^
     {
-//        if ([_selectedAnnotations containsObject:annotation]) {
-//            return;
-//        }
+        if ([_selectedAnnotations containsObject:annotation]) {
+            return;
+        }
         
         MKAnnotationView *annotationView = [_annotationViews objectForKey:annotation];
         retry = !annotationView;
