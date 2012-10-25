@@ -87,6 +87,8 @@
 		14C023951636143F005CC1CC /* MKMapItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 14C023911636143F005CC1CC /* MKMapItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		14C023961636143F005CC1CC /* MKMapItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C023921636143F005CC1CC /* MKMapItem.m */; };
 		14F400381637B2E30074DB1F /* MKGeometry.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F400371637B2E30074DB1F /* MKGeometry.m */; };
+		14F4017416385ABE0074DB1F /* MKTapGestureRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 14F4017216385ABD0074DB1F /* MKTapGestureRecognizer.h */; settings = {ATTRIBUTES = (); }; };
+		14F4017516385ABE0074DB1F /* MKTapGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F4017316385ABD0074DB1F /* MKTapGestureRecognizer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -190,6 +192,8 @@
 		14C023B11636147D005CC1CC /* Stylesheet.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = Stylesheet.css; sourceTree = "<group>"; };
 		14C023B21636147E005CC1CC /* Animations.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = Animations.css; sourceTree = "<group>"; };
 		14F400371637B2E30074DB1F /* MKGeometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKGeometry.m; sourceTree = "<group>"; };
+		14F4017216385ABD0074DB1F /* MKTapGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKTapGestureRecognizer.h; sourceTree = "<group>"; };
+		14F4017316385ABD0074DB1F /* MKTapGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKTapGestureRecognizer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -251,6 +255,8 @@
 				14C023221636125D005CC1CC /* MKLocationManager.m */,
 				14C023231636125D005CC1CC /* MKTouchesMovedGestureRecognizer.h */,
 				14C023241636125D005CC1CC /* MKTouchesMovedGestureRecognizer.m */,
+				14F4017216385ABD0074DB1F /* MKTapGestureRecognizer.h */,
+				14F4017316385ABD0074DB1F /* MKTapGestureRecognizer.m */,
 				14C023251636125D005CC1CC /* MapKit.html.h */,
 				14C0234C163612E0005CC1CC /* Scripting */,
 				14C0234D163612F0005CC1CC /* Geocoding */,
@@ -446,6 +452,7 @@
 				14C0238C1636140C005CC1CC /* MKPolygonView.h in Headers */,
 				14C023931636143F005CC1CC /* MKDirectionsRequest.h in Headers */,
 				14C023951636143F005CC1CC /* MKMapItem.h in Headers */,
+				14F4017416385ABE0074DB1F /* MKTapGestureRecognizer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -561,6 +568,7 @@
 				14C023941636143F005CC1CC /* MKDirectionsRequest.m in Sources */,
 				14C023961636143F005CC1CC /* MKMapItem.m in Sources */,
 				14F400381637B2E30074DB1F /* MKGeometry.m in Sources */,
+				14F4017516385ABE0074DB1F /* MKTapGestureRecognizer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

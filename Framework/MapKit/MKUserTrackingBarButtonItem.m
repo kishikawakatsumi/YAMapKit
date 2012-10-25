@@ -94,8 +94,8 @@
 
 - (id)createViewForToolbar:(id)arg1
 {
-    id(*function)(id, SEL, ...) = [UIBarButtonItem instanceMethodForSelector:_cmd];
-    UIView *view = function(self, _cmd, arg1);
+    IMP f = [UIBarButtonItem instanceMethodForSelector:_cmd];
+    UIView *view = f(self, _cmd, arg1);
     [view addSubview:__userTrackingButton];
     return view;
 }

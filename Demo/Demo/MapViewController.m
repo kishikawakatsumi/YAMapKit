@@ -213,8 +213,8 @@
     
     droppedPin = [[Placemark alloc] initWithCoordinate:centerCoordinate addressDictionary:nil];
     droppedPin.coordinate = centerCoordinate;
-//    droppedPin.title = NSLocalizedString(@"Dropped Pin", nil);
-//    [_mapView addAnnotation:droppedPin];
+    droppedPin.title = NSLocalizedString(@"Dropped Pin", nil);
+    [_mapView addAnnotation:droppedPin];
     
     CLLocation *location = [[CLLocation alloc] initWithLatitude:centerCoordinate.latitude longitude:centerCoordinate.longitude];
     [_geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error)
@@ -248,7 +248,7 @@
     controller.printFormatter = [_mapView viewPrintFormatter];
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        //        [controller presentFromBarButtonItem:printButton animated:YES completionHandler:completionHandler];
+//        [controller presentFromBarButtonItem:printButton animated:YES completionHandler:completionHandler];
     } else {
         [controller presentAnimated:YES completionHandler:completionHandler];
     }
